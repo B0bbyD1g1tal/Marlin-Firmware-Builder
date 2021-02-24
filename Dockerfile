@@ -37,5 +37,10 @@ code --list-extensions
 # Clone MarlinFirmware and Configurations repos
 # Import configs for Creality - Ender 3 Pro - v4.2.7 Board
 RUN git clone https://github.com/MarlinFirmware/Marlin.git && \
-git clone https://github.com/MarlinFirmware/Configurations.git && \
-cp /home/vscode/Configurations/config/examples/Creality/Ender-3\ Pro/CrealityV427/* /home/vscode/Marlin/Marlin/
+git clone https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder.git && \
+cp /home/vscode/Marlin-Firmware-Builder/configs/* /home/vscode/Marlin/Marlin/ && \
+####################################
+# platformio.ini
+####################################
+sed -i -e 's/default_envs = .*/default_envs = STM32F103RET6_creality/g' /home/vscode/Marlin/platformio.ini
+
