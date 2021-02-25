@@ -18,7 +18,7 @@ PIO_BOARD_ENV = environ["PIO_BOARD_ENV"]
 PIO_DIR = environ["PIO_DIR"]
 PIO_PATH = Path(f"{PIO_DIR}{MARLIN_FIRMWARE_REPO}/Marlin/")
 
-AUTHOR = "B0bby D1g1tal"  # Maybe ${USER} ...
+AUTHOR = "B0bby D1g1tal"  # Maybe ${USER} someday ? Dunno ...
 SED = "^"
 
 # Configuration.h
@@ -91,5 +91,7 @@ run(["sed", "-i", "-e",
     check=True)
 # Prepare env for build
 chdir(f"{PIO_DIR}{MARLIN_FIRMWARE_REPO}")
+run(["pio", "system", "prune"],
+    check=True)
 run(["pio", "run", "--target", "clean"],
     check=True)
