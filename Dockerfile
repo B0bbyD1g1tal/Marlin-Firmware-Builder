@@ -20,7 +20,7 @@ python-is-python3
 ADD scripts/entrypoint.sh \
 scripts/clone_fw_repos.py \
 scripts/config_mixer.py \
-scripts/config_editor.py
+scripts/config_editor.py \
 /usr/local/bin/
 
 RUN pip3 install -U platformio
