@@ -20,7 +20,7 @@ chdir(PROJECT_DIR)
 BUILD_DIR = Path(f"{PROJECT_DIR}/.pio/build/")
 rmtree(BUILD_DIR)
 
-run(["pio", "run", "-e", f"{PIO_BOARD_ENV}"],
+run(["pio", "run", "-e", PIO_BOARD_ENV],
     check=True)
 
 copyfile(f"{BUILD_DIR}{PIO_BOARD_ENV}/firmware-*.bin",

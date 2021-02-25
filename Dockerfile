@@ -17,7 +17,7 @@ python3-pip \
 python3-distutils \
 python-is-python3
 
-ADD scripts/entrypoint.sh \
+ADD scripts/entrypoint.py \
 scripts/clone_fw_repos.py \
 scripts/config_mixer.py \
 scripts/config_editor.py \
@@ -31,4 +31,4 @@ RUN clone_fw_repos.py
 RUN config_mixer.py
 RUN config_editor.py
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["entrypoint.py"]
