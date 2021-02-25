@@ -2,9 +2,9 @@
 .idea/
 
 #Python
-./venv/
-./.mypy_cache/
+venv/
+.mypy_cache/
 
 # Marlin FW and configs
-./Marlin/
-./Configurations/
+Marlin/
+Configurations/
