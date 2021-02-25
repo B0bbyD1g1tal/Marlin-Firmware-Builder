@@ -17,10 +17,10 @@ python3-pip \
 python3-distutils \
 python-is-python3
 
-ADD ./clone_fw_repos.py \
-./config_mixer.py \
-./config_editor.py \
-./entrypoint.sh \
+ADD scripts/entrypoint.sh \
+scripts/clone_fw_repos.py \
+scripts/config_mixer.py \
+scripts/config_editor.py
 /usr/local/bin/
 
 RUN pip3 install -U platformio
