@@ -5,5 +5,5 @@
 venv/
 
 # Marlin FW and configs
-/Marlin/
-/Configurations/
+Marlin/
+Configurations/
