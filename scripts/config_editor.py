@@ -79,7 +79,8 @@ run(["sed", "-i", "-e",
 
 BABYSTEP_ZPROBE_OFFSET = "#define BABYSTEP_ZPROBE_OFFSET"
 run(["sed", "-i", "-e",
-     f"s{SED}//{BABYSTEP_ZPROBE_OFFSET}{SED}{BABYSTEP_ZPROBE_OFFSET}{SED}{PIO_PATH}/Configuration_adv.h"],
+     f"s{SED}//{BABYSTEP_ZPROBE_OFFSET}{SED}{BABYSTEP_ZPROBE_OFFSET}{SED}",
+     f"{PIO_PATH}/Configuration_adv.h"],
     check=True)
 
 # set default env in platformio.ini

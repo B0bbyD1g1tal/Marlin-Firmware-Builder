@@ -27,8 +27,8 @@ RUN pip3 install -U platformio
 
 WORKDIR ${PIO_DIR}
 
-RUN clone_fw_repos.py && \
-config_mixer.py && \
-config_editor.py
+RUN clone_fw_repos.py
+RUN config_mixer.py
+RUN config_editor.py
 
 ENTRYPOINT entrypoint.sh
