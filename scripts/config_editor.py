@@ -4,6 +4,9 @@
 Edits firmware config files
 """
 
+# flake8: noqa: E501
+# pylint: disable=C0301
+
 from os import chdir, environ
 from subprocess import run
 from pathlib import Path
@@ -20,8 +23,8 @@ SED = "^"
 
 # Configuration.h
 STRING_CONFIG_H_AUTHOR = "#define STRING_CONFIG_H_AUTHOR"
-run(["sed", "-i", "-e",
-     f"s{SED}{STRING_CONFIG_H_AUTHOR} \"(.*,{SED}{STRING_CONFIG_H_AUTHOR} \"({AUTHOR},{SED}",  # noqa: E501 pylint: disable=C0301
+run(["sed", "-i",    "-e",
+     f"s{SED}{STRING_CONFIG_H_AUTHOR} \"(.*,{SED}{STRING_CONFIG_H_AUTHOR} \"({AUTHOR},{SED}",
      f"{PIO_PATH}/Configuration.h"],
     check=True)
 
@@ -39,7 +42,7 @@ run(["sed", "-i", "-e",
 
 AUTO_BED_LEVELING_BILINEAR = "#define AUTO_BED_LEVELING_BILINEAR"
 run(["sed", "-i", "-e",
-     f"s{SED}//{AUTO_BED_LEVELING_BILINEAR}{SED}{AUTO_BED_LEVELING_BILINEAR}{SED}",  # noqa: E501
+     f"s{SED}//{AUTO_BED_LEVELING_BILINEAR}{SED}{AUTO_BED_LEVELING_BILINEAR}{SED}",
      f"{PIO_PATH}/Configuration.h"],
     check=True)
 
@@ -70,13 +73,13 @@ run(["sed", "-i", "-e",
 
 PROBE_OFFSET_WIZARD_START_Z = "#define PROBE_OFFSET_WIZARD_START_Z"
 run(["sed", "-i", "-e",
-     f"s{SED}//{PROBE_OFFSET_WIZARD_START_Z}{SED}{PROBE_OFFSET_WIZARD_START_Z}{SED}",  # noqa: E501
+     f"s{SED}//{PROBE_OFFSET_WIZARD_START_Z}{SED}{PROBE_OFFSET_WIZARD_START_Z}{SED}",
      f"{PIO_PATH}/Configuration_adv.h"],
     check=True)
 
 BABYSTEP_ZPROBE_OFFSET = "#define BABYSTEP_ZPROBE_OFFSET"
 run(["sed", "-i", "-e",
-     f"s{SED}//{BABYSTEP_ZPROBE_OFFSET}{SED}{BABYSTEP_ZPROBE_OFFSET}{SED}{PIO_PATH}/Configuration_adv.h"],  # noqa: E501 pylint: disable=C0301
+     f"s{SED}//{BABYSTEP_ZPROBE_OFFSET}{SED}{BABYSTEP_ZPROBE_OFFSET}{SED}{PIO_PATH}/Configuration_adv.h"],
     check=True)
 
 # set default env in platformio.ini
