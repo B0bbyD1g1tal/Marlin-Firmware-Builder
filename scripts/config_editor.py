@@ -90,7 +90,7 @@ run(["sed", "-i", "-e",
      f"{PIO_DIR}{MARLIN_FIRMWARE_REPO}/platformio.ini"],
     check=True)
 # Prepare env for build
-chdir(f"{PIO_DIR}{MARLIN_FIRMWARE_REPO}")
+chdir(f"{PIO_DIR}{MARLIN_FIRMWARE_REPO}/")
 run(["pio", "run", "--target", "clean"],
     check=True)
 # run(["pio", "system", "prune"],
