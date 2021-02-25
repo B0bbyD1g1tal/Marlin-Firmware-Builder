@@ -31,5 +31,4 @@ RUN clone_fw_repos.py
 RUN config_mixer.py
 RUN config_editor.py
 
-ENTRYPOINT ["bash
-","entrypoint.py"]
+ENTRYPOINT ["entrypoint.py"]
