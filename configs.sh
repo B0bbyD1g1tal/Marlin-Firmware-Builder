@@ -33,8 +33,8 @@ BOARD="CrealityV427"
 ###############################################################################
 # Marlin Firmware and Configurations local paths
 ###############################################################################
-CONFIGS_PATH="${PIO_DIR}/${MARLIN_CONFIG_REPO}/config/examples/${MANUFACTURER}/${MODEL}/${BOARD}/"
-MARLIN_PIO_PATH="${PIO_DIR}/${MARLIN_FW_REPO}/Marlin/"
+CONFIGS_PATH="${PIO_DIR}${MARLIN_CONFIG_REPO}/config/examples/${MANUFACTURER}/${MODEL}/${BOARD}/"
+MARLIN_PIO_PATH="${PIO_DIR}${MARLIN_FW_REPO}/Marlin/"
 
 ###############################################################################
 #==============================================================================
@@ -56,7 +56,7 @@ cp "${CONFIGS_PATH}*" "${MARLIN_PIO_PATH}"
 # platformio.ini
 ###############################################################################
 DEFAULT_ENVS="default_envs = "
-sed -i -e "s${SED}${DEFAULT_ENVS}.*${SED}${DEFAULT_ENVS}${PIO_BOARD_ENV}${SED}" "${PIO_DIR}/code/Marlin-Firmware-Builder/${MARLIN_FW_REPO}/platformio.ini"
+sed -i -e "s${SED}${DEFAULT_ENVS}.*${SED}${DEFAULT_ENVS}${PIO_BOARD_ENV}${SED}" "${PIO_DIR}${MARLIN_FW_REPO}/platformio.ini"
 
 ###############################################################################
 # Configuration.h
