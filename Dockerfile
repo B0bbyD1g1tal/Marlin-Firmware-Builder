@@ -17,12 +17,16 @@ python3-pip \
 python3-distutils \
 python-is-python3
 
-ADD ./configs.py ./entrypoint.sh /usr/local/bin/
+ADD ./clone_fw_repos.py \
+./config_editor.py \
+./config_mixer.py \
+./entrypoint.sh \
+/usr/local/bin/
 
 RUN pip3 install -U platformio
 
 WORKDIR ${PIO_DIR}
 
-RUN configs.py
+RUN config_mixer.py && config_editor.py
 
 ENTRYPOINT entrypoint.sh
