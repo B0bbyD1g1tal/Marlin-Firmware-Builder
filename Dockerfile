@@ -11,9 +11,6 @@ RUN mkdir ${PIO_DIR} ${FIRMWARE_BIN_DIR} && \
 apt-get update && \
 apt-get upgrade -y && \
 apt-get install -y \
-software-properties-common \
-apt-transport-https \
-curl \
 git \
 python3 \
 python3-pip \
@@ -28,4 +25,4 @@ WORKDIR ${PIO_DIR}
 
 RUN configs.py
 
-#ENTRYPOINT entrypoint.sh
+ENTRYPOINT entrypoint.sh
