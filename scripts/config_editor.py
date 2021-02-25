@@ -91,7 +91,7 @@ run(["sed", "-i", "-e",
     check=True)
 # Prepare env for build
 chdir(f"{PIO_DIR}{MARLIN_FIRMWARE_REPO}")
-run(["pio", "system", "prune"],
-    check=True)
 run(["pio", "run", "--target", "clean"],
     check=True)
+# run(["pio", "system", "prune"],
+#     check=True)
