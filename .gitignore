@@ -1,2 +1,9 @@
 # JetBrains
 .idea/
+
+#Python vevn
+venv/
+
+# Marlin FW and configs
+/Marlin/
+/Configurations/
