@@ -20,5 +20,5 @@ BUILD_DIR = Path(f"{PROJECT_DIR}/.pio/build/")
 
 run(["pio", "run", "-e", PIO_BOARD_ENV],
     check=True)
-run(["cp", f"{BUILD_DIR}{PIO_BOARD_ENV}/firmware-*.bin", FIRMWARE_BIN_DIR],
+run(["cp", f"{BUILD_DIR}/{PIO_BOARD_ENV}/firmware-*.bin", FIRMWARE_BIN_DIR],
     check=True)
