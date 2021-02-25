@@ -42,9 +42,9 @@ MARLIN_PIO_PATH="${PIO_DIR}/${MARLIN_FW_REPO}/Marlin/"
 # and copy Printer's configurations
 #==============================================================================
 ###############################################################################
-git clone -b "${GIT_BRANCH}" "${MARLIN_GITHUB_URL}${MARLIN_FW_REPO}.git" &&
-  git clone -b "${GIT_BRANCH}" "${MARLIN_GITHUB_URL}${MARLIN_CONFIG_REPO}.git" &&
-  cp "${CONFIGS_PATH}"*.h "${MARLIN_PIO_PATH}"
+git clone -b "${GIT_BRANCH}" "${MARLIN_GITHUB_URL}${MARLIN_FW_REPO}.git" && \
+git clone -b "${GIT_BRANCH}" "${MARLIN_GITHUB_URL}${MARLIN_CONFIG_REPO}.git" &&\
+cp "${CONFIGS_PATH}*" "${MARLIN_PIO_PATH}"
 
 ###############################################################################
 #==============================================================================

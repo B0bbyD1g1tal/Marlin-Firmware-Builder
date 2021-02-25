@@ -7,25 +7,25 @@ FIRMWARE_BIN_DIR="/firmware/" \
 GIT_BRANCH="bugfix-2.0.x" \
 PIO_BOARD_ENV="STM32F103RET6_creality"
 
-RUN mkdir ${FIRMWARE_BIN_DIR} && \
+RUN mkdir ${PIO_DIR} ${FIRMWARE_BIN_DIR} && \
 apt-get update && \
 apt-get upgrade -y && \
 apt-get install -y \
 software-properties-common \
 apt-transport-https \
 curl \
+git \
 python3 \
 python3-pip \
 python3-distutils \
 python-is-python3
 
-ADD ./get_configs.sh ./entrypoint.sh /usr/local/bin/
+ADD ./configs.sh ./entrypoint.sh /usr/local/bin/
 
-RUN pip install -U platformio
+RUN pip3 install -U platformio
 
-WORKDIR=
+WORKDIR ${PIO_DIR}
 
-RUN platformio update && \
-platformio lib update
+RUN ./configs.sh
 
-ENTRYPOINT ["entrypoint.sh"]
+#ENTRYPOINT entrypoint.sh
