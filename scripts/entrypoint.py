@@ -3,8 +3,7 @@
 """
 Edits firmware config files
 """
-from os import chdir, environ
-from shutil import rmtree, copyfile
+from os import chdir, environ, rmdir
 from subprocess import run
 from pathlib import Path
 
@@ -18,10 +17,9 @@ PIO_BOARD_ENV = environ["PIO_BOARD_ENV"]
 PROJECT_DIR = Path(f"{PIO_DIR}{MARLIN_FIRMWARE_REPO}/")
 chdir(PROJECT_DIR)
 BUILD_DIR = Path(f"{PROJECT_DIR}/.pio/build/")
-rmtree(BUILD_DIR)
+rmdir(BUILD_DIR)
 
 run(["pio", "run", "-e", PIO_BOARD_ENV],
     check=True)
-
-copyfile(f"{BUILD_DIR}{PIO_BOARD_ENV}/firmware-*.bin",
-         FIRMWARE_BIN_DIR)
+run(["cp", f"{BUILD_DIR}{PIO_BOARD_ENV}/firmware-*.bin", FIRMWARE_BIN_DIR],
+    check=True)
