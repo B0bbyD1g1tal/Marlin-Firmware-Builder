@@ -2,8 +2,8 @@
 .idea/
 
 #Python vevn
-./venv/
+venv/*
 
 # Marlin FW and configs
-./Marlin/
-./Configurations/
+Marlin/
+Configurations/
