@@ -1,16 +1,13 @@
 FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
+TZ="Europe/Sofia" \
 MANUFACTURER="Creality" \
 MODEL="Ender-3 Pro" \
 BOARD="CrealityV427" \
 PIO_BOARD_ENV="STM32F103RET6_creality" \
 GIT_BRANCH="bugfix-2.0.x" \
-TZ="Europe/Sofia" \
 PYTHON_VERSION="3.9" \
-MARLIN_GITHUB_URL="https://github.com/MarlinFirmware/" \
-MARLIN_FIRMWARE_REPO="Marlin" \
-MARLIN_CONFIG_REPO="Configurations" \
 WORK_DIR="/platformio/" \
 FIRMWARE_BIN_DIR="/firmware/" \
 AUTHOR="B0bby D1g1tal"
@@ -28,15 +25,13 @@ python3-distutils \
 python-is-python3
 
 ADD scripts/entrypoint.sh \
-scripts/process_fw_repos.py \
-scripts/config_editor.py \
+scripts/config-calibrator.sh \
+scripts/build_bootstrapper.py \
 /usr/local/bin/
 
 RUN pip3 install -U platformio
 
-WORKDIR ${WORK_DIR}
-
-RUN process_fw_repos.py && \
-config_editor.py
+RUN build_bootstrapper.py && \
+config-calibrator.sh
 
 ENTRYPOINT entrypoint.sh
