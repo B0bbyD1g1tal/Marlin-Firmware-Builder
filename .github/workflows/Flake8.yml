@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  Flake8:
     runs-on: ubuntu-20.04
 
     steps:
