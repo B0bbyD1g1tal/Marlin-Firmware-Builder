@@ -1,13 +1,13 @@
 FROM ubuntu:20.04
 
 ENV AUTHOR="B0bby D1g1tal" \
+UBUNTU_VESION="20.04" \
 PYTHON_VERSION="3.9" \
-UBUNTU_VESION="20.04"
+GIT_BRANCH="bugfix-2.0.x" \
 MANUFACTURER="Creality" \
 MODEL="Ender-3 Pro" \
 BOARD="CrealityV427" \
 PIO_BOARD="STM32F103RET6_creality" \
-GIT_BRANCH="bugfix-2.0.x" \
 WORK_DIR="/platformio/" \
 FIRMWARE_BIN_DIR="/firmware/" \
 DEBIAN_FRONTEND=noninteractive \
