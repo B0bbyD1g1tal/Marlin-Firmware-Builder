@@ -1,12 +1,2 @@
 # JetBrains
 .idea/
-
-# Python
-venv/
-# Mypy
-.mypy_cache/
-
-# Marlin FW
-Marlin/
-# Marlin configs
-Configurations/
