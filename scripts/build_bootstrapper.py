@@ -54,5 +54,7 @@ run(['sed', '-i', '-e',
 
 # Prune and prepare for build
 chdir(PIO_PROJECT_DIR)
-run(["pio", "system", "prune", "-f"])
-run(["pio", "run", "--target", "clean"])
+run(["pio", "system", "prune", "-f"],
+    check=True)
+run(["pio", "run", "--target", "clean"],
+    check=True)
