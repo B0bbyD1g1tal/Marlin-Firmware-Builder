@@ -23,11 +23,11 @@ MARLIN_FIRMWARE_REPO = "Marlin"
 # git@github.com:MarlinFirmware/Configurations.git
 MARLIN_CONFIG_REPO = "Configurations"
 
-PIO_PROJECT_DIR = Path(
+PIO_PROJECT = Path(
     f'{environ["WORK_DIR"]}{MARLIN_FIRMWARE_REPO}/')
-PIO_CONFIGS_DIR = Path(
-    f'{PIO_PROJECT_DIR}/Marlin/')
-PRINTER_CONFIG = Path(
+PIO_CONFIGS = Path(
+    f'{PIO_PROJECT}/Marlin/')
+MARLIN_PRINTER_CONFIG = Path(
     f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
     f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
 
@@ -43,17 +43,18 @@ run(['git', 'clone', '-b',
     check=True)
 
 # Copy selected printer configs to PIO project
-copytree(PRINTER_CONFIG, PIO_CONFIGS_DIR, dirs_exist_ok=True)
+copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
+         dirs_exist_ok=True)
 
 # Set Default ENV in platformio.ini
-DEFAULT_ENVS = 'default_envs = '
+DEFAULT_PIO_ENV = 'default_envs = '
 run(['sed', '-i', '-e',
-     f's^{DEFAULT_ENVS}.*^{DEFAULT_ENVS}{environ["PIO_BOARD_ENV"]}^',
-     f'{PIO_PROJECT_DIR}/platformio.ini'],
+     f's^{DEFAULT_PIO_ENV}.*^{DEFAULT_PIO_ENV}{environ["PIO_BOARD"]}^',
+     f'{PIO_PROJECT}/platformio.ini'],
     check=True)
 
 # Prune and prepare for build
-chdir(PIO_PROJECT_DIR)
+chdir(PIO_PROJECT)
 run(["pio", "system", "prune", "-f"],
     check=True)
 run(["pio", "run", "--target", "clean"],

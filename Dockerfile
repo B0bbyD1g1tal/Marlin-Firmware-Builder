@@ -1,28 +1,38 @@
 FROM ubuntu:20.04
 
-ENV DEBIAN_FRONTEND=noninteractive \
-TZ="Europe/Sofia" \
+ENV AUTHOR="B0bby D1g1tal" \
+PYTHON_VERSION="3.9" \
+UBUNTU_VESION="20.04"
 MANUFACTURER="Creality" \
 MODEL="Ender-3 Pro" \
 BOARD="CrealityV427" \
-PIO_BOARD_ENV="STM32F103RET6_creality" \
+PIO_BOARD="STM32F103RET6_creality" \
 GIT_BRANCH="bugfix-2.0.x" \
-PYTHON_VERSION="3.9" \
 WORK_DIR="/platformio/" \
 FIRMWARE_BIN_DIR="/firmware/" \
-AUTHOR="B0bby D1g1tal"
+DEBIAN_FRONTEND=noninteractive \
+TZ="Europe/Sofia"
 
-LABEL maintainer=${AUTHOR}
+LABEL project="Marlin Firmware Builder"
+LABEL marlin-git-branch="${GIT_BRANCH}"
+LABEL 3d-printer-manufacturer="${MANUFACTURER}"
+LABEL 3d-printer-model="${MODEL}"
+LABEL 3d-printer-board="${BOARD}"
+LABEL pio-board="${PIO_BOARD}"
+LABEL os="${BASE_IMAGE_NAME}:${20.04}"
+LABEL python-version="${PYTHON_VERSION}"
+LABEL timezone="${TZ}"
+LABEL maintainer="${AUTHOR}"
 
 RUN mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
 apt-get update && \
 apt-get upgrade -y && \
 apt-get install -y \
-git \
 python${PYTHON_VERSION} \
 python3-pip \
 python3-distutils \
-python-is-python3
+python-is-python3 \
+git
 
 ADD scripts/entrypoint.sh \
 scripts/config-calibrator.sh \
