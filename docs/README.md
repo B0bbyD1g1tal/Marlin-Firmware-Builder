@@ -1,9 +1,9 @@
 ### Welcome to GitHub Pages about 
 # Marlin Firmware Builder
-> a project by B0bbyD1g1tal in container
+> project by B0bbyD1g1tal in docker container
 
 ```bash
-b0bby@d1g1tal:~$ 0_hello-friend
+b0bby@d1g1tal:~$ 0_hello_friend
 ```
 
 ```bash
