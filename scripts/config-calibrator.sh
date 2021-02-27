@@ -1,7 +1,8 @@
 #!/bin/bash
+###############################################################################
 set -e
 set -x
-
+###############################################################################
 PIO_CONFIGS_DIR="${WORK_DIR}/Marlin/Marlin/"
 ###############################################################################
 STRING_CONFIG_H_AUTHOR="#define STRING_CONFIG_H_AUTHOR"
@@ -11,7 +12,7 @@ sed -i -e \
 ###############################################################################
 # Custom config settings
 ###############################################################################
-# These are for Creality Ender3 Pro v4.2.7 enabling BLTouch
+# The following are for Creality Ender3 Pro v4.2.7 and enabling BLTouch
 ###############################################################################
 if [[ "${CUSTOM_CONFIG}" == 'yes' ]]; then
   # Configuration.h
