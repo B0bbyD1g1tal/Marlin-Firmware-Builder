@@ -3,35 +3,27 @@
 set -e
 set -x
 ###############################################################################
-# Build and copy firmware-*.bin
+BINARY_FILE_NAME=$(echo "$MODEL" | tr -d " ")-"${BOARD}"-"${GIT_BRANCH}"-$(date +"%d-%b-%y").bin
 ###############################################################################
-BINARY_FILE_NAME=\
-$(echo "$MODEL" | tr -d " ")-"${BOARD}"-"${GIT_BRANCH}"-$(date +"%d-%b-%y").bin
-
+#  Set git-branch
+###############################################################################
+current-branch="$(git rev-parse --abbrev-ref HEAD)"
+#if [ current-branch != GIT_BRANCH ]; then
+git checkout "${GIT_BRANCH}"
+###############################################################################
+#  Manufacturer & Printer & Board selection
+###############################################################################
+cp \
+  "${WORK_DIR}"/Configurations/config/examples/"${MANUFACTURER}"/"${MODEL}"/"${BOARD}"/*.h \
+  "${WORK_DIR}"/Marlin/Marlin/
+###############################################################################
+# Build firmware-*.bin
+###############################################################################
 cd "${WORK_DIR}"/Marlin/ || exit &&
-  pio run -e "${PIO_BOARD}" &&
-  cp "${WORK_DIR}"/Marlin/.pio/build/"${PIO_BOARD}"/firmware-*bin \
-    "${FIRMWARE_BIN_DIR}"/"${BINARY_FILE_NAME}"
+  pio run -e "${PIO_BOARD}"
 ###############################################################################
-# TODO Branch &| PIO Board &| Printer selection to be done here
-
-# TODO -check-branches-and- just checkout the selected
-
-# TODO move to entrypoint
-# Copy selected printer configs to PIO project
-#PIO_CONFIGS = Path(
-#    f'{PIO_PROJECT}/Marlin/')
-#MARLIN_PRINTER_CONFIG = Path(
-#    f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
-#    f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
-#copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
-#         dirs_exist_ok=True)
-
-# TODO move to entrypoint
-# Set Default ENV in platformio.ini
-#DEFAULT_PIO_ENV = 'default_envs = '
-#run(['sed', '-i', '-e',
-#     f's^{DEFAULT_PIO_ENV}.*^{DEFAULT_PIO_ENV}{environ["PIO_BOARD"]}^',
-#     f'{PIO_PROJECT}/platformio.ini'],
-#    check=True)
-# TODO move to entrypoint
+# Copy firmware-*.bin to delivery folder
+###############################################################################
+cp "${WORK_DIR}"/Marlin/.pio/build/"${PIO_BOARD}"/firmware-*bin \
+  "${FIRMWARE_BIN_DIR}"/"${BINARY_FILE_NAME}"
+###############################################################################

@@ -4,9 +4,6 @@
 Clones Marlin Firmware and Configurations repositories
 by the specified Git-Branch
 
-Copies the Configurations into the PlatformIO Project
-for the specified Manufacturer / 3D Printer / Board
-
 Bootstraps PlatformIO build
 for the selected Board
 """
@@ -22,9 +19,6 @@ MARLIN_FIRMWARE_REPO = "Marlin"
 # git@github.com:MarlinFirmware/Configurations.git
 MARLIN_CONFIG_REPO = "Configurations"
 
-PIO_PROJECT = Path(
-    f'{environ["WORK_DIR"]}{MARLIN_FIRMWARE_REPO}/')
-
 # Clone Marlin repositories
 chdir(environ["WORK_DIR"])
 run(['git', 'clone', '-b',
@@ -36,11 +30,20 @@ run(['git', 'clone', '-b',
      f'{MARLIN_GITHUB_URL}{MARLIN_CONFIG_REPO}.git'],
     check=True)
 
+# Platform IO Project bootstrap
+PIO_PROJECT = Path(
+    f'{environ["WORK_DIR"]}{MARLIN_FIRMWARE_REPO}/')
+# Replace Default ENV in platformio.ini
+if environ["PIO_BOARD"]:
+    PIO_DEFAULT_ENV = 'default_envs = '
+    run(['sed', '-i', '-e',
+         f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
+         f'{PIO_PROJECT}/platformio.ini'],
+        check=True)
+
 # Prune and prepare for build
 chdir(PIO_PROJECT)
 run(["pio", "system", "prune", "-f"],
     check=True)
 run(["pio", "run", "--target", "clean"],
     check=True)
-# TODO gather more info about boards listed as default_envs in PIO
-# TODO goal: bootstrap all envs, without setting specific one

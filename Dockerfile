@@ -10,8 +10,9 @@ BOARD="CrealityV427" \
 PIO_BOARD="STM32F103RET6_creality" \
 WORK_DIR="/platformio/" \
 FIRMWARE_BIN_DIR="/firmware/" \
+#CUSTOM_CONFIG="yes" \
 DEBIAN_FRONTEND=noninteractive \
-TZ="Europe/Sofia"
+TZ=Europe/Sofia
 
 LABEL project="Marlin Firmware Builder"
 LABEL marlin-git-branch="${GIT_BRANCH}"
@@ -41,7 +42,6 @@ scripts/build_bootstrapper.py \
 
 RUN pip3 install -U platformio
 
-RUN build_bootstrapper.py && \
-config-calibrator.sh
+RUN build_bootstrapper.py
 
 ENTRYPOINT entrypoint.sh
