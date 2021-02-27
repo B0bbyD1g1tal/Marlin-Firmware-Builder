@@ -19,6 +19,11 @@ cd "${WORK_DIR}"/Marlin/ || exit &&
 
 # TODO move to entrypoint
 # Copy selected printer configs to PIO project
+#PIO_CONFIGS = Path(
+#    f'{PIO_PROJECT}/Marlin/')
+#MARLIN_PRINTER_CONFIG = Path(
+#    f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
+#    f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
 #copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
 #         dirs_exist_ok=True)
 

@@ -24,11 +24,6 @@ MARLIN_CONFIG_REPO = "Configurations"
 
 PIO_PROJECT = Path(
     f'{environ["WORK_DIR"]}{MARLIN_FIRMWARE_REPO}/')
-PIO_CONFIGS = Path(
-    f'{PIO_PROJECT}/Marlin/')
-MARLIN_PRINTER_CONFIG = Path(
-    f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
-    f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
 
 # Clone Marlin repositories
 chdir(environ["WORK_DIR"])
