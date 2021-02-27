@@ -66,4 +66,6 @@ sed -i -e \
   "s^//${BABYSTEP_ZPROBE_OFFSET}^${BABYSTEP_ZPROBE_OFFSET}^" \
   "${PIO_CONFIGS_DIR}"/Configuration_adv.h
 ###############################################################################
-echo "Great Success :D"
+echo "Wu-Tang Forever :D"
+
+# TODO List most(all) significant settings

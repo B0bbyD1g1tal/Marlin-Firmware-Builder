@@ -41,21 +41,25 @@ run(['git', 'clone', '-b',
      environ['GIT_BRANCH'],
      f'{MARLIN_GITHUB_URL}{MARLIN_CONFIG_REPO}.git'],
     check=True)
+# TODO -check-branches-and- just checkout the selected
+# TODO move to entrypoint
 
 # Copy selected printer configs to PIO project
 copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
          dirs_exist_ok=True)
-
+# TODO move to entrypoint
 # Set Default ENV in platformio.ini
 DEFAULT_PIO_ENV = 'default_envs = '
 run(['sed', '-i', '-e',
      f's^{DEFAULT_PIO_ENV}.*^{DEFAULT_PIO_ENV}{environ["PIO_BOARD"]}^',
      f'{PIO_PROJECT}/platformio.ini'],
     check=True)
-
+# TODO move to entrypoint
 # Prune and prepare for build
 chdir(PIO_PROJECT)
 run(["pio", "system", "prune", "-f"],
     check=True)
 run(["pio", "run", "--target", "clean"],
     check=True)
+# TODO more info about board listed as default_envs in PIO
+# TODO goal: bootstrap all envs, without setting specific one
