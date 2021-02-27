@@ -8,4 +8,4 @@ cd "${WORK_DIR}"/Marlin/ || exit &&
   cp "${WORK_DIR}"/Marlin/.pio/build/"${PIO_BOARD}"/firmware-*bin \
     "${FIRMWARE_BIN_DIR}"
 ###############################################################################
-# TODO
+# TODO Branch &| PIO Board &| Printer selection to be done here
