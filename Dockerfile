@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ENV WORK_DIR="/platformio/" \
+ENV WORK_DIR="/Marlin-Firmware-Builder /" \
 FIRMWARE_BIN_DIR="/firmware/" \
 DEBIAN_FRONTEND=noninteractive \
 TZ=Europe/Sofia \
