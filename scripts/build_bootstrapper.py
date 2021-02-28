@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+# pylint: disable=W0511
 """
 Clones Marlin Firmware and Configurations repositories
 by the specified Git-Branch if passed
@@ -12,7 +12,7 @@ from os import environ, chdir
 from shutil import copytree
 from subprocess import run
 from pathlib import Path
-# pylint: disable=W0511
+
 ###############################################################################
 # Marlin
 ###############################################################################
@@ -24,7 +24,7 @@ git_configs = ['git', 'clone', MARLIN_CONFIG_REPO]
 # TODO Get list of available branches and check against them !
 # remote_branches = run(["git", "branch", "-r"]) kind of ...
 # default_branch = "origin/HEAD -> origin/2.0.x"
-if environ["GIT_BRANCH"]:
+if "GIT_BRANCH" in environ:
     git_firmware = ['git', 'clone', '-b', environ["GIT_BRANCH"],
                     MARLIN_FIRMWARE_REPO]
     git_configs = ['git', 'clone', '-b', environ["GIT_BRANCH"],
@@ -36,7 +36,9 @@ run(git_configs, check=True)
 # Add the specified 3D-Printer config in PIO project, if all ENVs are available
 # TODO images must be tagged with printer's name if used
 # TODO inspect case of 2 different printers on build and runtime
-if environ["MANUFACTURER"] and environ["MODEL"] and environ["BOARD"]:
+if "MANUFACTURER" in environ and \
+        "MODEL" in environ and \
+        "BOARD" in environ:
     MARLIN_PRINTER_CONFIG = Path(
         f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
         f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
@@ -49,7 +51,7 @@ if environ["MANUFACTURER"] and environ["MODEL"] and environ["BOARD"]:
 ###############################################################################
 PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
 # Set the default board environment in platformio.ini
-if environ['PIO_BOARD']:
+if "PIO_BOARD" in environ:
     PIO_DEFAULT_ENV = 'default_envs = '
     run(['sed', '-i', '-e',
          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
