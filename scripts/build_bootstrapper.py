@@ -16,8 +16,8 @@ from pathlib import Path
 ###############################################################################
 # Marlin
 ###############################################################################
-MARLIN_FIRMWARE_REPO = 'git@github.com:MarlinFirmware/Marlin.git'
-MARLIN_CONFIG_REPO = 'git@github.com:MarlinFirmware/Configurations.git'
+MARLIN_FIRMWARE_REPO = 'https://github.com/MarlinFirmware/Marlin.git'
+MARLIN_CONFIG_REPO = 'https://github.com/MarlinFirmware/Configurations.git'
 # By default is pulling from 2.0.x Stable branch
 git_firmware = ['git', 'clone', MARLIN_FIRMWARE_REPO]
 git_configs = ['git', 'clone', MARLIN_CONFIG_REPO]
