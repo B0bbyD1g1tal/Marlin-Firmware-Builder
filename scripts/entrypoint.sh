@@ -7,13 +7,7 @@ BINARY_FILE_NAME=$(echo "${MODEL}" | tr -d " ")-"${BOARD}"-"${MARLIN_GIT_BRANCH}
 ###############################################################################
 # Marlin git-branch
 ###############################################################################
-current-branch="$(git rev-parse --abbrev-ref HEAD)"
-
-cd "${WORK_DIR}"/Configurations/ || exit &&
-  git checkout "${MARLIN_GIT_BRANCH}" &&
-  cd "${WORK_DIR}"/Marlin/ || exit &&
-  git checkout "${MARLIN_GIT_BRANCH}"
-
+cd "${WORK_DIR}"/Marlin/
 current-branch="$(git rev-parse --abbrev-ref HEAD)"
 ###############################################################################
 # Manufacturer & Printer & Board selection
