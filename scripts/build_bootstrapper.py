@@ -19,9 +19,12 @@ chdir(Path(environ["WORK_DIR"]))
 ###############################################################################
 MARLIN_FIRMWARE_REPO = 'https://github.com/MarlinFirmware/Marlin.git'
 MARLIN_CONFIG_REPO = 'https://github.com/MarlinFirmware/Configurations.git'
-# By default is pulling from 2.0.x Stable branch
+# Marlin Stable branch is 2.0.x
 git_firmware = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
                 MARLIN_FIRMWARE_REPO]
+# Configurations Stable branch is import-2.0.x
+if environ["MARLIN_GIT_BRANCH"] == "2.0.x":
+    environ["MARLIN_GIT_BRANCH"] = "import-2.0.x"
 git_configs = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
                MARLIN_CONFIG_REPO]
 # Clone Marlin repositories
