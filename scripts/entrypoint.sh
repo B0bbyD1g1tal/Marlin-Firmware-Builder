@@ -3,19 +3,24 @@
 set -e
 set -x
 ###############################################################################
-BINARY_FILE_NAME=$(echo "$MODEL" | tr -d " ")-"${BOARD}"-"${GIT_BRANCH}"-$(date +"%d-%b-%y").bin
+BINARY_FILE_NAME=\
+$(echo "$MODEL" | tr -d " ")-"${BOARD}"-"${GIT_BRANCH}"-$(date +"%d-%b-%y").bin
 ###############################################################################
-#  Set git-branch
+# Marlin git-branch
 ###############################################################################
 current-branch="$(git rev-parse --abbrev-ref HEAD)"
 #if [ current-branch != GIT_BRANCH ]; then
 git checkout "${GIT_BRANCH}"
 ###############################################################################
-#  Manufacturer & Printer & Board selection
+# Manufacturer & Printer & Board selection
 ###############################################################################
 cp \
   "${WORK_DIR}"/Configurations/config/examples/"${MANUFACTURER}"/"${MODEL}"/"${BOARD}"/*.h \
   "${WORK_DIR}"/Marlin/Marlin/
+###############################################################################
+# config-calibrator.sh
+###############################################################################
+bash /config-calibrator.sh
 ###############################################################################
 # Build firmware-*.bin
 ###############################################################################

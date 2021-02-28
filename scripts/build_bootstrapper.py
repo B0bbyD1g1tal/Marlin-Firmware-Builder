@@ -33,7 +33,9 @@ if environ["GIT_BRANCH"]:
 chdir(Path(environ["WORK_DIR"]))
 run(git_firmware, check=True)
 run(git_configs, check=True)
-# Add the specified 3D-Printer configs in PIO project if all are available
+# Add the specified 3D-Printer config in PIO project, if all ENVs are available
+# TODO images must be tagged with printer's name if used # pylint: disable=fixme
+# TODO inspect case of 2 different printers on build and runtime # pylint: disable=fixme
 if environ["MANUFACTURER"] and environ["MODEL"] and environ["BOARD"]:
     MARLIN_PRINTER_CONFIG = Path(
         f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
