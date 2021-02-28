@@ -1,8 +1,9 @@
 FROM ubuntu:20.04
 
-ENV AUTHOR="B0bby D1g1tal" \
+ENV WORK_DIR="/platformio/" \
+FIRMWARE_BIN_DIR="/firmware/" \
 DEBIAN_FRONTEND=noninteractive \
-TZ=Europe/Sofia
+TZ=Europe/Sofia \
 #UBUNTU_VESION="20.04" \
 #PYTHON_VERSION="3.9" \
 #GIT_BRANCH="bugfix-2.0.x" \
@@ -11,9 +12,7 @@ TZ=Europe/Sofia
 #BOARD="CrealityV427" \
 #PIO_BOARD="STM32F103RET6_creality" \
 #CUSTOM_CONFIG="yes" \
-WORK_DIR="/platformio/" \
-FIRMWARE_BIN_DIR="/firmware/" \
-
+AUTHOR="B0bby D1g1tal"
 #LABEL project="Marlin Firmware Builder"
 #LABEL marlin-git-branch="${GIT_BRANCH}"
 #LABEL 3d-printer-manufacturer="${MANUFACTURER}"
