@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# pylint: disable=W0511
+
 """
 Clones Marlin Firmware and Configurations repositories
 by the specified Git-Branch if passed
@@ -13,6 +13,7 @@ from shutil import copytree
 from subprocess import run
 from pathlib import Path
 
+chdir(Path(environ["WORK_DIR"]))
 ###############################################################################
 # Marlin
 ###############################################################################
@@ -21,24 +22,21 @@ MARLIN_CONFIG_REPO = 'https://github.com/MarlinFirmware/Configurations.git'
 # By default is pulling from 2.0.x Stable branch
 git_firmware = ['git', 'clone', MARLIN_FIRMWARE_REPO]
 git_configs = ['git', 'clone', MARLIN_CONFIG_REPO]
-# TODO Get list of available branches and check against them !
-# remote_branches = run(["git", "branch", "-r"]) kind of ...
-# default_branch = "origin/HEAD -> origin/2.0.x"
-if "GIT_BRANCH" in environ:
-    git_firmware = ['git', 'clone', '-b', environ["GIT_BRANCH"],
+if "MARLIN_GIT_BRANCH" in environ:
+    git_firmware = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
                     MARLIN_FIRMWARE_REPO]
-    git_configs = ['git', 'clone', '-b', environ["GIT_BRANCH"],
+    git_configs = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
                    MARLIN_CONFIG_REPO]
 # Clone Marlin repositories
-chdir(Path(environ["WORK_DIR"]))
-run(git_firmware, check=True)
-run(git_configs, check=True)
-# Add the specified 3D-Printer config in PIO project, if all ENVs are available
-# TODO images must be tagged with printer's name if used
-# TODO inspect case of 2 different printers on build and runtime
+run(git_firmware,
+    check=True)
+run(git_configs,
+    check=True)
+# Add the specified 3D-Printer config in PIO project, if ALL ENVs are available
 if "MANUFACTURER" in environ and \
         "MODEL" in environ and \
-        "BOARD" in environ:
+        "BOARD" in environ and \
+        "PIO_BOARD" in environ:
     MARLIN_PRINTER_CONFIG = Path(
         f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
         f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
@@ -50,17 +48,21 @@ if "MANUFACTURER" in environ and \
 # Platform IO
 ###############################################################################
 PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
+chdir(PIO_PROJECT)
 # Set the default board environment in platformio.ini
-if "PIO_BOARD" in environ:
+if "MANUFACTURER" in environ and \
+        "MODEL" in environ and \
+        "BOARD" in environ and \
+        "PIO_BOARD" in environ:
     PIO_DEFAULT_ENV = 'default_envs = '
     run(['sed', '-i', '-e',
          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
          f'{PIO_PROJECT}/platformio.ini'],
         check=True)
 # Prune project and prepare for build
-chdir(PIO_PROJECT)
 run(['pio', 'system', 'prune', '-f'],
     check=True)
 run(['pio', 'run', '--target', 'clean'],
     check=True)
+
 ###############################################################################
