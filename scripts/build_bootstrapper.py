@@ -9,9 +9,9 @@ sets environment for the specified Board if passed
 """
 
 from os import environ, chdir
-from shutil import copytree
 from subprocess import run
 from pathlib import Path
+from shutil import copytree
 
 chdir(Path(environ["WORK_DIR"]))
 ###############################################################################

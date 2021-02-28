@@ -3,14 +3,18 @@
 set -e
 set -x
 ###############################################################################
-BINARY_FILE_NAME=\
-$(echo "$MODEL" | tr -d " ")-"${BOARD}"-"${GIT_BRANCH}"-$(date +"%d-%b-%y").bin
+BINARY_FILE_NAME=$(echo "${MODEL}" | tr -d " ")-"${BOARD}"-"${MARLIN_GIT_BRANCH}"-$(date +"%d-%b-%y").bin
 ###############################################################################
 # Marlin git-branch
 ###############################################################################
 current-branch="$(git rev-parse --abbrev-ref HEAD)"
-#if [ current-branch != GIT_BRANCH ]; then
-git checkout "${GIT_BRANCH}"
+
+cd "${WORK_DIR}"/Configurations/ || exit &&
+  git checkout "${MARLIN_GIT_BRANCH}" &&
+  cd "${WORK_DIR}"/Marlin/ || exit &&
+  git checkout "${MARLIN_GIT_BRANCH}"
+
+current-branch="$(git rev-parse --abbrev-ref HEAD)"
 ###############################################################################
 # Manufacturer & Printer & Board selection
 ###############################################################################
@@ -20,12 +24,11 @@ cp \
 ###############################################################################
 # config-calibrator.sh
 ###############################################################################
-bash /config-calibrator.sh
+bash config-calibrator.sh
 ###############################################################################
 # Build firmware-*.bin
 ###############################################################################
-cd "${WORK_DIR}"/Marlin/ || exit &&
-  pio run -e "${PIO_BOARD}"
+pio run -e "${PIO_BOARD}"
 ###############################################################################
 # Copy firmware-*.bin to delivery folder
 ###############################################################################

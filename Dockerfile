@@ -30,12 +30,10 @@ Marlin-GitHub-Branch="${MARLIN_GIT_BRANCH}" \
 Custom-Firmware-Settings="${CUSTOM_FIRMWARE_SETTINGS}" \
 maintainer="${MAINTAINER}"
 
-WORKDIR ${WORK_DIR}
-
 ADD scripts/ /usr/local/bin/
 
 RUN useradd -ms /bin/bash ${MAINTAINER} && \
-mkdir ${FIRMWARE_BIN_DIR} && \
+mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
 chown ${MAINTAINER} ${WORK_DIR} ${FIRMWARE_BIN_DIR}
 
 RUN apt-get update && \
@@ -51,6 +49,7 @@ rm -rf /var/lib/apt/lists/*
 RUN pip3 install --no-cache-dir platformio
 
 USER ${MAINTAINER}
+WORKDIR ${WORK_DIR}
 
 RUN build_bootstrapper.py
 
