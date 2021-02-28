@@ -29,7 +29,7 @@ RUN mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
 apt-get update && \
 apt-get upgrade -y && \
 apt-get install -y \
-python${PYTHON_VERSION} \
+python3.9 \
 python3-pip \
 python3-distutils \
 python-is-python3 \
