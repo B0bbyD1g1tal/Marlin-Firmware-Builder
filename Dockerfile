@@ -6,8 +6,8 @@
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-# Stable branch: 2.0.x
-# Nightly branch: bugfix-2.0.x
+# Stable branch: "2.0.x"
+# Nightly branch: "bugfix-2.0.x"
 ENV MARLIN_GIT_BRANCH="2.0.x" \
 #MANUFACTURER="Creality" \
 #MODEL="Ender-3 Pro" \
