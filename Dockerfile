@@ -38,6 +38,7 @@ Marlin-GitHub-Branch="${MARLIN_GIT_BRANCH}" \
 Custom-Firmware-Settings="${CUSTOM_FIRMWARE_SETTINGS}" \
 maintainer="${MAINTAINER}"
 
+RUN env
 ADD scripts/ /usr/local/bin/
 
 RUN useradd -ms /bin/bash ${MAINTAINER}
