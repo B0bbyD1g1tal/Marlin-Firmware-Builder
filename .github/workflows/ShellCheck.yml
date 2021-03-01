@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@stable
+        uses: ludeeus/action-shellcheck@master
         with:
           scandir: ./scripts
