@@ -7,21 +7,17 @@
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-
 # Stable branch: 2.0.x
 # Nightly branch: bugfix-2.0.x
 ENV MARLIN_GIT_BRANCH="2.0.x" \
+FIRMWARE_BIN_DIR=/firmware/ \
+WORK_DIR=/Marlin-Firmware-Builder/ \
 #MANUFACTURER="Creality" \
 #MODEL="Ender-3 Pro" \
 #BOARD="CrealityV427" \
 #PIO_BOARD="STM32F103RET6_creality" \
 #CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
-FIRMWARE_BIN_DIR=/firmware/ \
-WORK_DIR=/Marlin-Firmware-Builder/ \
-#BASE_IMAGE=${BASE_IMAGE} \
-#UBUNTU_VESION=${UBUNTU_VESION} \
-#PYTHON_VERSION=${PYTHON_VERSION} \
-#TZ=${TZ} \
+TZ=Europe\Sofia \
 MAINTAINER=B0bbyD1g1tal
 
 LABEL project="Marlin-Firmware-Builder" \
@@ -42,8 +38,9 @@ maintainer="${MAINTAINER}"
 RUN env
 ADD scripts/ /usr/local/bin/
 
-RUN useradd -ms /bin/bash ${MAINTAINER} && \
-mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR}
+RUN useradd -ms /bin/bash ${MAINTAINER}
+RUN mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
+chown ${MAINTAINER} ${WORK_DIR} ${FIRMWARE_BIN_DIR}
 
 RUN apt-get update && \
 #apt-get upgrade -y && \
