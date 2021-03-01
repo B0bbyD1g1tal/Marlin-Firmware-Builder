@@ -42,9 +42,8 @@ maintainer="${MAINTAINER}"
 RUN env
 ADD scripts/ /usr/local/bin/
 
-RUN useradd -ms /bin/bash ${MAINTAINER}
-RUN mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
-chown ${MAINTAINER} ${WORK_DIR} ${FIRMWARE_BIN_DIR}
+RUN useradd -ms /bin/bash ${MAINTAINER} && \
+mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR}
 
 RUN apt-get update && \
 #apt-get upgrade -y && \
