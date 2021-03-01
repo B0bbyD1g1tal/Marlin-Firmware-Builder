@@ -36,10 +36,6 @@ maintainer="${MAINTAINER}"
 RUN env
 ADD scripts/ /usr/local/bin/
 
-RUN useradd -ms /bin/bash ${MAINTAINER}
-RUN mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
-chown ${MAINTAINER} ${WORK_DIR} ${FIRMWARE_BIN_DIR}
-
 RUN apt-get update && \
 #apt-get upgrade -y && \
 apt-get install --no-install-recommends -y \
@@ -48,9 +44,12 @@ python-is-python3 \
 python3-pip \
 python3-distutils \
 git && \
-rm -rf /var/lib/apt/lists/*
+pip3 install --no-cache-dir platformio && \
+rm -rf /var/lib/apt/lists/* && \
+useradd -ms /bin/bash ${MAINTAINER}
 
-RUN pip3 install --no-cache-dir platformio
+RUN mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
+chown ${MAINTAINER} ${WORK_DIR} ${FIRMWARE_BIN_DIR}
 
 USER ${MAINTAINER}
 WORKDIR ${WORK_DIR}
