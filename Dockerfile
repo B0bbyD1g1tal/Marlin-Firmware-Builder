@@ -15,7 +15,7 @@ FIRMWARE_BIN_DIR=/firmware/ \
 WORK_DIR=/Marlin-Firmware-Builder/ \
 MAINTAINER="B0bbyD1g1tal"
 
-LABEL project="Marlin Firmware Builder" \
+LABEL project="Marlin-Firmware-Builder" \
 base-image="${BASE_IMAGE}" \
 base-image.version="${UBUNTU_VESION}" \
 OS="${BASE_IMAGE}:${UBUNTU_VESION}" \

@@ -13,27 +13,34 @@ from subprocess import run
 from pathlib import Path
 from shutil import copytree
 
-chdir(Path(environ["WORK_DIR"]))
 ###############################################################################
 # Marlin
 ###############################################################################
+chdir(Path(environ["WORK_DIR"]))
+
 MARLIN_FIRMWARE_REPO = 'https://github.com/MarlinFirmware/Marlin.git'
 MARLIN_CONFIG_REPO = 'https://github.com/MarlinFirmware/Configurations.git'
-# Marlin Stable branch is 2.0.x
-git_firmware = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
-                MARLIN_FIRMWARE_REPO]
-# Configurations Stable branch is import-2.0.x
-if environ["MARLIN_GIT_BRANCH"] == "2.0.x":
-    environ["MARLIN_GIT_BRANCH"] = "import-2.0.x"
-git_configs = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
-               MARLIN_CONFIG_REPO]
-# Clone Marlin repositories
-run(git_firmware,
-    check=True)
-run(git_configs,
-    check=True)
+MARLIN_BRANCHES = ["2.0.x", "bugfix-2.0.x"]
+
+if "MARLIN_GIT_BRANCH" in environ and \
+        environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES:
+    # Marlin Stable branch is 2.0.x
+    git_firmware = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
+                    MARLIN_FIRMWARE_REPO]
+    if environ["MARLIN_GIT_BRANCH"] == "2.0.x":
+        # Configurations Stable branch is import-2.0.x
+        git_configs = ['git', 'clone', '-b', "import-2.0.x",
+                       MARLIN_CONFIG_REPO]
+    else:
+        git_configs = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
+                       MARLIN_CONFIG_REPO]
+    # Clone Marlin repositories
+    run(git_firmware, check=True)
+    run(git_configs, check=True)
+
 # Add the specified 3D-Printer config in PIO project, if ALL ENVs are available
-if "MANUFACTURER" in environ and \
+if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
+        "MANUFACTURER" in environ and \
         "MODEL" in environ and \
         "BOARD" in environ and \
         "PIO_BOARD" in environ:
@@ -41,6 +48,7 @@ if "MANUFACTURER" in environ and \
         f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
         f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
     PIO_CONFIGS = Path(f'{environ["WORK_DIR"]}/Marlin/Marlin/')
+
     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
              dirs_exist_ok=True)
 
@@ -48,9 +56,9 @@ if "MANUFACTURER" in environ and \
 # Platform IO
 ###############################################################################
 PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
-chdir(PIO_PROJECT)
-# Set the default board environment in platformio.ini
-if "MANUFACTURER" in environ and \
+# Set default board environment in platformio.ini, if ALL ENVs are available
+if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
+        "MANUFACTURER" in environ and \
         "MODEL" in environ and \
         "BOARD" in environ and \
         "PIO_BOARD" in environ:
@@ -59,10 +67,12 @@ if "MANUFACTURER" in environ and \
          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
          f'{PIO_PROJECT}/platformio.ini'],
         check=True)
-# Prune project and prepare for build
-run(['pio', 'system', 'prune', '-f'],
-    check=True)
-run(['pio', 'run', '--target', 'clean'],
-    check=True)
+
+# Boostrap PIO Project
+if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES:
+    chdir(PIO_PROJECT)
+
+    run(['pio', 'run', '--target', 'clean'], check=True)
+    run(['pio', 'system', 'prune', '-f'], check=True)
 
 ###############################################################################
