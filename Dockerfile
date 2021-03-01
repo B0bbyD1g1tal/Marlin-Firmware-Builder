@@ -18,10 +18,10 @@ ENV MARLIN_GIT_BRANCH="2.0.x" \
 #CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
 FIRMWARE_BIN_DIR=/firmware/ \
 WORK_DIR=/Marlin-Firmware-Builder/ \
-BASE_IMAGE=${BASE_IMAGE} \
-UBUNTU_VESION=${UBUNTU_VESION} \
-PYTHON_VERSION=${PYTHON_VERSION} \
-TZ=${TZ} \
+#BASE_IMAGE=${BASE_IMAGE} \
+#UBUNTU_VESION=${UBUNTU_VESION} \
+#PYTHON_VERSION=${PYTHON_VERSION} \
+#TZ=${TZ} \
 MAINTAINER=B0bbyD1g1tal
 
 LABEL project="Marlin-Firmware-Builder" \
@@ -61,5 +61,5 @@ USER ${MAINTAINER}
 WORKDIR ${WORK_DIR}
 
 RUN build_bootstrapper.py
-
+RUN env
 ENTRYPOINT entrypoint.sh
