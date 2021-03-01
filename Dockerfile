@@ -42,7 +42,7 @@ maintainer="${MAINTAINER}"
 RUN env
 ADD scripts/ /usr/local/bin/
 
-RUN useradd -ms /bin/bash "${MAINTAINER}"
+RUN useradd -ms /bin/bash "${MAINTAINER}" \
 mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR}
 
 RUN apt-get update && \
