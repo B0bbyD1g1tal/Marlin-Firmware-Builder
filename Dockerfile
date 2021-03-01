@@ -40,7 +40,7 @@ maintainer="${MAINTAINER}"
 
 ADD scripts/ /usr/local/bin/
 
-RUN useradd -ms /bin/bash ${MAINTAINER} && \
+RUN useradd --badnames -ms /bin/bash ${MAINTAINER} && \
 mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
 chown ${MAINTAINER} ${WORK_DIR} ${FIRMWARE_BIN_DIR}
 
