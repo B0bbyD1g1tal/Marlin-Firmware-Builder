@@ -1,13 +1,13 @@
 name: ShellCheck
 on:
   push:
-    branches: [ master ]
+    branches: [ stable, unstable ]
 jobs:
   ShellCheck:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
+        uses: ludeeus/action-shellcheck@stable
         with:
           scandir: ./scripts

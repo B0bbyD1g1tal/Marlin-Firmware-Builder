@@ -1,7 +1,7 @@
 name: PyLint
 on:
   push:
-    branches: [ master ]
+    branches: [ stable, unstable ]
 jobs:
   PyLint:
     runs-on: ubuntu-20.04

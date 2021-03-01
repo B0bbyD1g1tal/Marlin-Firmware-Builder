@@ -1,7 +1,7 @@
 name: Flake8
 on:
   push:
-    branches: [ master ]
+    branches: [ stable, unstable ]
 jobs:
   Flake8:
     runs-on: ubuntu-20.04
