@@ -6,20 +6,20 @@
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-# Stable branch: "2.0.x"
-# Nightly branch: "bugfix-2.0.x"
+# Stable: "2.0.x"
+# Nightly: "bugfix-2.0.x"
 ENV MARLIN_GIT_BRANCH="2.0.x" \
 #MANUFACTURER="Creality" \
 #MODEL="Ender-3 Pro" \
 #BOARD="CrealityV427" \
 #PIO_BOARD="STM32F103RET6_creality" \
 #CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
+#TZ=Europe/Sofia \
 FIRMWARE_BIN_DIR=/firmware/ \
 WORK_DIR=/Marlin-Firmware-Builder/ \
-TZ=Europe/Sofia \
 MAINTAINER=B0bbyD1g1tal
 
-LABEL project="Marlin Firmware Builder" \
+LABEL project="Marlin-Firmware-Builder" \
 base-image="${BASE_IMAGE}" \
 base-image.version="${UBUNTU_VERSION}" \
 OS="${BASE_IMAGE}:${UBUNTU_VERSION}" \
