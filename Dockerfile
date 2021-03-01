@@ -3,25 +3,26 @@ ARG UBUNTU_VESION=20.04
 ARG PYTHON_VERSION=3.8
 ARG TZ=Europe/Sofia
 ARG DEBIAN_FRONTEND=noninteractive
-ARG MAINTAINER=B0bbyD1g1tal
 
 FROM ${BASE_IMAGE}:${UBUNTU_VESION}
 
 ARG DEBIAN_FRONTEND=${DEBIAN_FRONTEND}
 
-ENV MARLIN_GIT_BRANCH=${MARLIN_GIT_BRANCH} \
+# Stable branch: 2.0.x
+# Nightly branch: bugfix-2.0.x
+ENV MARLIN_GIT_BRANCH="2.0.x" \
+#MANUFACTURER="Creality" \
+#MODEL="Ender-3 Pro" \
+#BOARD="CrealityV427" \
+#PIO_BOARD="STM32F103RET6_creality" \
+#CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
+FIRMWARE_BIN_DIR=/firmware/ \
+WORK_DIR=/Marlin-Firmware-Builder/ \
 BASE_IMAGE=${BASE_IMAGE} \
 UBUNTU_VESION=${UBUNTU_VESION} \
 PYTHON_VERSION=${PYTHON_VERSION} \
 TZ=${TZ} \
-MANUFACTURER="Creality" \
-MODEL="Ender-3 Pro" \
-BOARD="CrealityV427" \
-PIO_BOARD="STM32F103RET6_creality" \
-CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
-FIRMWARE_BIN_DIR=/firmware/ \
-WORK_DIR=/Marlin-Firmware-Builder/ \
-MAINTAINER=${MAINTAINER}
+MAINTAINER=B0bbyD1g1tal
 
 LABEL project="Marlin-Firmware-Builder" \
 base-image="${BASE_IMAGE}" \
