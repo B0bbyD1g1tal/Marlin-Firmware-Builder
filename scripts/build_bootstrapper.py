@@ -38,37 +38,29 @@ if "MARLIN_GIT_BRANCH" in environ and \
     run(git_firmware, check=True)
     run(git_configs, check=True)
 
-# Add the specified 3D-Printer config in PIO project, if ALL ENVs are available
+PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
+# Add the specified 3D-Printer configuration and set default Board environment
 if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
         "MANUFACTURER" in environ and \
         "MODEL" in environ and \
         "BOARD" in environ and \
         "PIO_BOARD" in environ:
     MARLIN_PRINTER_CONFIG = Path(
-        f'{environ["WORK_DIR"]}{MARLIN_CONFIG_REPO}/config/examples/'
+        f'{environ["WORK_DIR"]}/Configurations/config/examples/'
         f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
-    PIO_CONFIGS = Path(f'{environ["WORK_DIR"]}/Marlin/Marlin/')
-
+    PIO_CONFIGS = Path(f'{PIO_PROJECT}/Marlin/')
+    # Copy Marlin 3D-Printer configuration
     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
              dirs_exist_ok=True)
-
-###############################################################################
-# Platform IO
-###############################################################################
-PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
-# Set default board environment in platformio.ini, if ALL ENVs are available
-if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
-        "MANUFACTURER" in environ and \
-        "MODEL" in environ and \
-        "BOARD" in environ and \
-        "PIO_BOARD" in environ:
+    # Set PIO Project's default Board environment
     PIO_DEFAULT_ENV = 'default_envs = '
     run(['sed', '-i', '-e',
          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
          f'{PIO_PROJECT}/platformio.ini'],
         check=True)
-
-# Boostrap PIO Project
+###############################################################################
+# Platform IO
+###############################################################################
 if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES:
     chdir(PIO_PROJECT)
 

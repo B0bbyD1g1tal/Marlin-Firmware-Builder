@@ -33,10 +33,10 @@ Marlin-GitHub-Branch="${MARLIN_GIT_BRANCH}" \
 3D-Printer.Full-Name="${MANUFACTURER}-${MODEL}, ${BOARD}:${PIO_BOARD}" \
 Custom-Firmware-Settings="${CUSTOM_FIRMWARE_SETTINGS}" \
 maintainer="${MAINTAINER}"
-RUN env
+
 ADD scripts/ /usr/local/bin/
 
-RUN apt-get update && \
+RUN env && apt-get update && \
 #apt-get upgrade -y && \
 apt-get install --no-install-recommends -y \
 #python${PYTHON_VERSION} \

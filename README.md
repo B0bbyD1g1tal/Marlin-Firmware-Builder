@@ -1,24 +1,16 @@
-# Marlin-Firmware-Builder
+# Marlin Firmware Builder
+[![PyLint](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/PyLint.yml/badge.svg)](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/PyLint.yml)
 [![Flake8](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/Flake8.yml/badge.svg)](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/Flake8.yml)
 [![MyPy](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/MyPy.yml/badge.svg)](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/MyPy.yml)
-[![PyLint](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/PyLint.yml/badge.svg)](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/PyLint.yml)
-
 [![ShellCheck](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/ShellCheck.yml/badge.svg)](https://github.com/B0bbyD1g1tal/Marlin-Firmware-Builder/actions/workflows/ShellCheck.yml)
 
 ```bash
-# Marlin-Firmware-Builder
-cd "${Marlin-Firmware-Builder}folder/"
-
-docker run -ti \
--v $(pwd)/firmware/:/firmware/ \
-marlin-firmware-builder:latest
-```
-
-```bash
-# TODO VS-Code 
-docker run -ti \
--v /tmp/.X11-unix:/tmp/.X11-unix \
--e DISPLAY="unix${DISPLAY}" \
---device /dev/dri \
-marlin-firmware-builder-code:latest
+docker run -ti -v $(pwd)/firmware/:/firmware/ -e MANUFACTURER="Creality" \
+MODEL="Ender-3 Pro" \
+BOARD="CrealityV427" \
+PIO_BOARD="STM32F103RET6_creality" \
+CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
+TZ="Europe/Sofia" \
+b0bbyd1g1tal/marlin-firmware-builder:latest  # 2.0.x
+# b0bbyd1g1tal/marlin-firmware-builder:bugfix  # bugfix-2.0.x
 ```
