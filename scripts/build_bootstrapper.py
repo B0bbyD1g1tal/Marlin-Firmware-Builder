@@ -58,6 +58,7 @@ if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
          f'{PIO_PROJECT}/platformio.ini'],
         check=True)
+
 ###############################################################################
 # Platform IO
 ###############################################################################

@@ -6,15 +6,16 @@
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-# Stable: "2.0.x"
-# Nightly: "bugfix-2.0.x"
+
 ENV MARLIN_GIT_BRANCH="2.0.x" \
 #MANUFACTURER="Creality" \
 #MODEL="Ender-3 Pro" \
 #BOARD="CrealityV427" \
 #PIO_BOARD="STM32F103RET6_creality" \
 #CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
-#TZ=Europe/Sofia \
+#PRINTER_IMAGE="${MANUFACTURER}-${MODEL}, \
+#${BOARD}:${PIO_BOARD} \
+#${CUSTOM_FIRMWARE_SETTINGS}" \
 FIRMWARE_BIN_DIR=/firmware/ \
 WORK_DIR=/Marlin-Firmware-Builder/ \
 MAINTAINER=B0bbyD1g1tal
@@ -30,7 +31,7 @@ Marlin-GitHub-Branch="${MARLIN_GIT_BRANCH}" \
 3D-Printer.Model="${MODEL}" \
 3D-Printer.Board="${BOARD}" \
 3D-Printer.PIO-Board="${PIO_BOARD}" \
-3D-Printer.Full-Name="${MANUFACTURER}-${MODEL}, ${BOARD}:${PIO_BOARD}" \
+3D-Printer.Full-Name="${PRINTER_IMAGE}" \
 Custom-Firmware-Settings="${CUSTOM_FIRMWARE_SETTINGS}" \
 maintainer="${MAINTAINER}"
 
@@ -56,4 +57,4 @@ WORKDIR ${WORK_DIR}
 
 RUN build_bootstrapper.py
 
-ENTRYPOINT entrypoint.sh
+ENTRYPOINT firmware_builder.py
