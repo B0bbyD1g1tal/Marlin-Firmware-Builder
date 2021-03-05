@@ -23,19 +23,20 @@ MARLIN_PRINTER_CONFIG = Path(
     f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
 
 chdir(PIO_PROJECT)
-current_git_branch = run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+current_git_branch = run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
+                         check=True)
+branch_ok = "MARLIN_GIT_BRANCH" in environ and \
+            environ["MARLIN_GIT_BRANCH"] == current_git_branch
 
-if "MARLIN_GIT_BRANCH" in environ and \
-        environ["MARLIN_GIT_BRANCH"] == current_git_branch and \
+if branch_ok and \
         "MANUFACTURER" in environ and \
         "MODEL" in environ and \
         "BOARD" in environ and \
         "PIO_BOARD" in environ and \
         "PRINTER_IMAGE" not in environ:
-    # Copy Marlin 3D-Printer configuration
     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
              dirs_exist_ok=True)
-    # Set PIO Project's default Board environment
+
     PIO_DEFAULT_ENV = 'default_envs = '
     run(['sed', '-i', '-e',
          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
