@@ -11,7 +11,6 @@ sets environment for the specified Board if passed
 from os import environ, chdir
 from subprocess import run
 from pathlib import Path
-
 # from shutil import copytree
 
 ###############################################################################
@@ -39,14 +38,7 @@ if "MARLIN_GIT_BRANCH" in environ and \
     run(git_firmware, check=True)
     run(git_configs, check=True)
 
-    PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
-
-    chdir(PIO_PROJECT)
-
-    run(['pio', 'run', '--target', 'clean'], check=True)
-    # run(['pio', 'system', 'prune', '-f'], check=True)
-
-# Add the specified 3D-Printer configuration and set default Board environment
+# Add the specified 3D-Printer configuration
 
 # if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
 #         "MANUFACTURER" in environ and \
@@ -56,20 +48,26 @@ if "MARLIN_GIT_BRANCH" in environ and \
 #     MARLIN_PRINTER_CONFIG = Path(
 #         f'{environ["WORK_DIR"]}/Configurations/config/examples/'
 #         f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
-#     PIO_CONFIGS = Path(f'{PIO_PROJECT}/Marlin/')
+#     PIO_CONFIGS = Path(f'{environ["WORK_DIR"]}Marlin/Marlin/')
 #     # Copy Marlin 3D-Printer configuration
 #     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
 #              dirs_exist_ok=True)
-#     # Set PIO Project's default Board environment
-#     PIO_DEFAULT_ENV = 'default_envs = '
-#     run(['sed', '-i', '-e',
-#          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
-#          f'{PIO_PROJECT}/platformio.ini'],
-#         check=True)
 
 ###############################################################################
 # Platform IO
 ###############################################################################
+PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
 
+chdir(PIO_PROJECT)
+# Set PIO Project's default Board environment if set
+if "PIO_BOARD" in environ and environ["PIO_BOARD"]:
+    PIO_DEFAULT_ENV = 'default_envs = '
+    run(['sed', '-i', '-e',
+         f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
+         f'{PIO_PROJECT}/platformio.ini'],
+        check=True)
+
+run(['pio', 'run', '--target', 'clean'], check=True)
+run(['pio', 'system', 'prune', '-f'], check=True)
 
 ###############################################################################
