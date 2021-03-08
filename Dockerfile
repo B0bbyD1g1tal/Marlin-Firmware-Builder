@@ -1,9 +1,9 @@
 ARG BASE_IMAGE=ubuntu
-ARG UBUNTU_VERSION=18.04
-ARG PYTHON_VERSION=3.9
-ARG MARLIN_GIT_BRANCH="2.0.x"
+ARG UBUNTU_VERSION=20.04
+ARG PYTHON_VERSION=3.8
+ARG MARLIN_GIT_BRANCH="bugfix-2.0.x"
 ARG TZ=Europe/London
-ARG MAINTAINER=B0bbyD1g1tal-Inc
+ARG MAINTAINER=B0bbyD1g1tal
 
 FROM ${BASE_IMAGE}:${UBUNTU_VERSION}
 
@@ -16,24 +16,21 @@ ARG MAINTAINER
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV MARLIN_GIT_BRANCH=${MARLIN_GIT_BRANCH} \
-WORK_DIR=/Marlin-Firmware-Builder/ \
+ENV WORK_DIR=/Marlin-Firmware-Builder/ \
 FIRMWARE_BIN_DIR=/firmware/ \
-MANUFACTURER="Creality" \
-MODEL="Ender-3 Pro" \
-BOARD="CrealityV427" \
-PIO_BOARD="STM32F103RET6_creality" \
-CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
-PRINTER_IMAGE="${MANUFACTURER}-${MODEL}, \
-${BOARD}:${PIO_BOARD} \
-${CUSTOM_FIRMWARE_SETTINGS}" \
-TZ=${TZ} \
-PYTHON_VERSION=${PYTHON_VERSION} \
+#MANUFACTURER="Creality" \
+#MODEL="Ender-3 Pro" \
+#BOARD="CrealityV427" \
+#PIO_BOARD="STM32F103RET6_creality" \
+#CUSTOM_FIRMWARE_SETTINGS="BLTouch and faster z homing" \
+#PRINTER_IMAGE="${MANUFACTURER}-${MODEL}, \
+#${BOARD}:${PIO_BOARD} \
+#${CUSTOM_FIRMWARE_SETTINGS}" \
 MAINTAINER=${MAINTAINER}
 
 LABEL project="Marlin-Firmware-Builder" \
 OS="${BASE_IMAGE}:${UBUNTU_VERSION}" \
-Python="${PYTHON}" \
+Python="${PYTHON_VERSION}" \
 Timezone="${TZ}" \
 Marlin-GitHub-Branch="${MARLIN_GIT_BRANCH}" \
 3D-Printer.Manufacturer="${MANUFACTURER}" \
@@ -50,7 +47,7 @@ RUN env && cat /etc/os-release && \
 apt-get update && \
 #apt-get upgrade -y && \
 apt-get install --no-install-recommends -y \
-python${PYTHON_VERSION} \
+#python${PYTHON_VERSION} \
 python-is-python3 \
 python3-pip \
 python3-distutils \
