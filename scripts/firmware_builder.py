@@ -7,7 +7,7 @@ by the specified Git-Branch if passed
 Bootstraps PlatformIO default environment
 sets environment for the specified Board if passed
 """
-
+from datetime import datetime
 from os import environ, chdir
 from subprocess import run
 from pathlib import Path
@@ -25,15 +25,15 @@ MARLIN_PRINTER_CONFIG = Path(
 chdir(PIO_PROJECT)
 current_git_branch = run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
                          check=True)
-branch_ok = "MARLIN_GIT_BRANCH" in environ and \
-            environ["MARLIN_GIT_BRANCH"] == current_git_branch
 
-if branch_ok and \
-        "MANUFACTURER" in environ and \
-        "MODEL" in environ and \
-        "BOARD" in environ and \
-        "PIO_BOARD" in environ and \
-        "PRINTER_IMAGE" not in environ:
+is_branch_ok = "MARLIN_GIT_BRANCH" in environ and \
+               environ["MARLIN_GIT_BRANCH"] and \
+               environ["MARLIN_GIT_BRANCH"] == current_git_branch
+is_printer_ok = "MANUFACTURER" in environ and environ["MANUFACTURER"] and \
+                "MODEL" in environ and environ["MODEL"] and \
+                "BOARD" in environ and environ["BOARD"] and \
+                "PIO_BOARD" in environ and environ["PIO_BOARD"]
+if is_branch_ok and is_printer_ok:
     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
              dirs_exist_ok=True)
 
@@ -43,13 +43,17 @@ if branch_ok and \
          f'{PIO_PROJECT}/platformio.ini'],
         check=True)
 
-if "PRINTER_IMAGE" in environ and \
-        "CUSTOM_FIRMWARE_SETTINGS" in environ and \
+if "CUSTOM_FIRMWARE_SETTINGS" in environ and \
         environ["CUSTOM_FIRMWARE_SETTINGS"]:
     run('config-calibrator.sh', check=True)
 
 run(['pio', 'run', '-e', environ["PIO_BOARD"]], check=True)
 
 BUILD_DIR = Path(f'{PIO_PROJECT}/.pio/build/{environ["PIO_BOARD"]}/')
+BINARY_FILE_NAME = f'{environ["MODEL"].replace(" ", "")}-\
+{environ["BOARD"]}-\
+{environ["MARLIN_GIT_BRANCH"]}-\
+{datetime.now().strftime("%d-%b-%y_%H%M")}'
+
 copyfile(f'{BUILD_DIR.glob("firmware-*bin")}',
-         Path(environ["FIRMWARE_BIN_DIR"]))
+         Path(f'{environ["FIRMWARE_BIN_DIR"]}/{BINARY_FILE_NAME}'))
