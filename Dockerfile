@@ -2,12 +2,14 @@
 #ARG UBUNTU_VERSION=20.04
 #ARG PYTHON_VERSION=3.8
 #ARG TZ=Europe/Sofia
+#ARG MARLIN_GIT_BRANCH="bugfix-2.0.x"
 
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV MARLIN_GIT_BRANCH="2.0.x" \
+ENV WORK_DIR=/Marlin-Firmware-Builder/ \
+FIRMWARE_BIN_DIR=/firmware/ \
 #MANUFACTURER="Creality" \
 #MODEL="Ender-3 Pro" \
 #BOARD="CrealityV427" \
@@ -16,8 +18,6 @@ ENV MARLIN_GIT_BRANCH="2.0.x" \
 #PRINTER_IMAGE="${MANUFACTURER}-${MODEL}, \
 #${BOARD}:${PIO_BOARD} \
 #${CUSTOM_FIRMWARE_SETTINGS}" \
-FIRMWARE_BIN_DIR=/firmware/ \
-WORK_DIR=/Marlin-Firmware-Builder/ \
 MAINTAINER=B0bbyD1g1tal
 
 LABEL project="Marlin-Firmware-Builder" \
