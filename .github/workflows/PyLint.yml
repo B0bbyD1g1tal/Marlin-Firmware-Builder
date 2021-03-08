@@ -18,4 +18,4 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with PyLint
         run: |
-          pylint scripts/*.py
+          pylint scripts/*.py --min-similarity-lines=5
