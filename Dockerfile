@@ -46,7 +46,7 @@ maintainer="${MAINTAINER}"
 
 ADD scripts/ /usr/local/bin/
 
-RUN env && lsb_release -a && \
+RUN env && cat /etc/os-release && \
 apt-get update && \
 #apt-get upgrade -y && \
 apt-get install --no-install-recommends -y \
