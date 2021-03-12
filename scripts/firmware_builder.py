@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 
 """
 Clones Marlin Firmware and Configurations repositories
@@ -14,46 +14,65 @@ from pathlib import Path
 from shutil import copytree, copyfile
 
 ###############################################################################
-#
+# Copy Configurations to Marlin Repository
 ###############################################################################
-PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
-PIO_CONFIGS = Path(f'{PIO_PROJECT}/Marlin/')
-MARLIN_PRINTER_CONFIG = Path(
-    f'{environ["WORK_DIR"]}/Configurations/config/examples/'
-    f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
+BRANCH = environ["MARLIN_GIT_BRANCH"]
+configs_branch = 'import-2.0.x' if BRANCH == '2.0.x' else BRANCH
 
-chdir(PIO_PROJECT)
-current_git_branch = run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
-                         check=True)
+PROJECT_DIR = Path(environ["WORK_DIR"])
+MARLIN_FW = Path(f'{PROJECT_DIR}/Marlin-{BRANCH}/')
+MARLIN_CONFIGS = Path(f'{PROJECT_DIR}/Configurations-{configs_branch}/')
 
-# is_branch_ok = "MARLIN_GIT_BRANCH" in environ and \
-#                environ["MARLIN_GIT_BRANCH"] and \
-#                environ["MARLIN_GIT_BRANCH"] == current_git_branch
-# is_printer_ok = "MANUFACTURER" in environ and environ["MANUFACTURER"] and \
-#                 "MODEL" in environ and environ["MODEL"] and \
-#                 "BOARD" in environ and environ["BOARD"] and \
-#                 "PIO_BOARD" in environ and environ["PIO_BOARD"]
-# if is_branch_ok and is_printer_ok:
-#     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
-#              dirs_exist_ok=True)
-#
-#     PIO_DEFAULT_ENV = 'default_envs = '
-#     run(['sed', '-i', '-e',
-#          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
-#          f'{PIO_PROJECT}/platformio.ini'],
-#         check=True)
+MARLIN_PRINTER_CONFIG = \
+    Path(f'{MARLIN_CONFIGS}/config/examples/'
+         f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
+PIO_CONFIGS = Path(f'{MARLIN_FW}/Marlin/')
 
+copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
+         dirs_exist_ok=True)
+
+###############################################################################
+# Platform IO Environment
+###############################################################################
+conf = Path(f'{MARLIN_PRINTER_CONFIG}/Configuration.h')
+conf_adv = Path(f'{MARLIN_PRINTER_CONFIG}/Configuration_adv.h')
+pins = Path(f'{MARLIN_FW}/Marlin/src/pins/pins.h')
+
+motherboard = ''
+pio = ''
+with open(conf, 'r') as config:
+    for line in config:
+        if '#define MOTHERBOARD' in line:
+            motherboard = line.strip().split(' ')[-1].replace('BOARD_', '')
+
+with open(pins, 'r') as pin:
+    for line in pin:
+        if motherboard in line:
+            pio = line.split()[-1].replace('env:', '')
+
+print(motherboard)
+print(pio)
+
+run(['pio', 'run', '--target', 'clean' '-e' f'{pio}'], check=True)
+run(['pio', 'system', 'prune', '-f'], check=True)
+
+###############################################################################
+# Custom Config
+###############################################################################
 if "CUSTOM_FIRMWARE_SETTINGS" in environ and \
         environ["CUSTOM_FIRMWARE_SETTINGS"]:
     run('config-calibrator.sh', check=True)
 
-run(['pio', 'run', '-e', environ["PIO_BOARD"]], check=True)
+###############################################################################
+# Build and deliver
+###############################################################################
+run(['pio', 'run', '-e', f'{pio}'], check=True)
 
-BUILD_DIR = Path(f'{PIO_PROJECT}/.pio/build/{environ["PIO_BOARD"]}/')
+BUILD_DIR = Path(f'{MARLIN_FW}/.pio/build/{pio}/')
 BINARY_FILE_NAME = f'{environ["MODEL"].replace(" ", "")}-\
-{environ["BOARD"]}-\
-{environ["MARLIN_GIT_BRANCH"]}-\
+{environ["BOARD"] if environ["BOARD"] else "X"}_\
+{environ["MARLIN_GIT_BRANCH"]}_\
 {datetime.now().strftime("%d-%b-%y_%H%M")}'
 
 copyfile(f'{BUILD_DIR.glob("firmware-*bin")}',
-         Path(f'{environ["FIRMWARE_BIN_DIR"]}/{BINARY_FILE_NAME}'))
+         f'{environ["FIRMWARE_BIN_DIR"]}/{BINARY_FILE_NAME}')

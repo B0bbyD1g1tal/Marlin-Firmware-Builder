@@ -1,74 +1,39 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 
 """
 Clones Marlin Firmware and Configurations repositories
-by the specified Git-Branch if passed
-
-Bootstraps PlatformIO default environment
-sets environment for the specified Board if passed
+by the specified Git-Branch
 """
 
-from os import environ, chdir
-from subprocess import run
+from os import environ
+from io import BytesIO
 from pathlib import Path
-from shutil import copytree
+from requests import get
+from zipfile import ZipFile
 
 ###############################################################################
-# Marlin
+# Marlin GitHub Repositories
 ###############################################################################
-chdir(Path(environ["WORK_DIR"]))
-
-MARLIN_FIRMWARE_REPO = 'https://github.com/MarlinFirmware/Marlin.git'
-MARLIN_CONFIG_REPO = 'https://github.com/MarlinFirmware/Configurations.git'
+PROJECT_DIR = Path(environ["WORK_DIR"])
+MARLIN_GITHUB_URL = 'https://github.com/MarlinFirmware/'
+FW = 'Marlin'
+CONF = 'Configurations'
 MARLIN_BRANCHES = ["2.0.x", "bugfix-2.0.x"]
 
 if "MARLIN_GIT_BRANCH" in environ and \
         environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES:
-    # Marlin Stable branch is 2.0.x
-    git_firmware = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
-                    MARLIN_FIRMWARE_REPO]
-    if environ["MARLIN_GIT_BRANCH"] == "2.0.x":
-        # Configurations Stable branch is import-2.0.x
-        git_configs = ['git', 'clone', '-b', "import-2.0.x",
-                       MARLIN_CONFIG_REPO]
-    else:
-        git_configs = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
-                       MARLIN_CONFIG_REPO]
-    # Clone Marlin repositories
-    archives = 'https://github.com/MarlinFirmware/Marlin/archive/{environ["MARLIN_GIT_BRANCH"]}.tar.gz'
-    # 'https://github.com/MarlinFirmware/Marlin/archive/2.0.7.2.zip'
-    run(git_firmware, check=True)
-    run(git_configs, check=True)
+    MARLIN_FIRMWARE_REPO = \
+        f'{MARLIN_GITHUB_URL}{FW}/archive/{environ["MARLIN_GIT_BRANCH"]}.zip'
+    # Configurations Stable branch is import-2.0.x instead of 2.0.x
+    MARLIN_CONFIG_REPO = \
+        f'{MARLIN_GITHUB_URL}{CONF}/archive/import-2.0.x.zip' if \
+        environ["MARLIN_GIT_BRANCH"] == "2.0.x" else \
+        f'{MARLIN_GITHUB_URL}{CONF}/archive/{environ["MARLIN_GIT_BRANCH"]}.zip'
 
-# Add the specified 3D-Printer configuration
-if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
-        "MANUFACTURER" in environ and \
-        "MODEL" in environ and \
-        "BOARD" in environ and \
-        "PIO_BOARD" in environ:
-    MARLIN_PRINTER_CONFIG = Path(
-        f'{environ["WORK_DIR"]}/Configurations/config/examples/'
-        f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
-    PIO_CONFIGS = Path(f'{environ["WORK_DIR"]}Marlin/Marlin/')
-    # Copy Marlin 3D-Printer configuration
-    copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
-             dirs_exist_ok=True)
+    fw_repo = get(MARLIN_FIRMWARE_REPO)
+    fw_zip = ZipFile(BytesIO(fw_repo.content))
+    fw_zip.extractall(PROJECT_DIR)
 
-###############################################################################
-# Platform IO
-###############################################################################
-PIO_PROJECT = Path(f'{environ["WORK_DIR"]}Marlin/')
-
-chdir(PIO_PROJECT)
-# Set PIO Project's default Board environment if set
-if "PIO_BOARD" in environ and environ["PIO_BOARD"]:
-    PIO_DEFAULT_ENV = 'default_envs = '
-    run(['sed', '-i', '-e',
-         f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
-         f'{PIO_PROJECT}/platformio.ini'],
-        check=True)
-
-run(['pio', 'run', '--target', 'clean'], check=True)
-run(['pio', 'system', 'prune', '-f'], check=True)
-
-###############################################################################
+    conf_repo = get(MARLIN_CONFIG_REPO)
+    conf_zip = ZipFile(BytesIO(conf_repo.content))
+    conf_zip.extractall(PROJECT_DIR)
