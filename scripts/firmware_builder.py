@@ -26,22 +26,22 @@ chdir(PIO_PROJECT)
 current_git_branch = run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
                          check=True)
 
-is_branch_ok = "MARLIN_GIT_BRANCH" in environ and \
-               environ["MARLIN_GIT_BRANCH"] and \
-               environ["MARLIN_GIT_BRANCH"] == current_git_branch
-is_printer_ok = "MANUFACTURER" in environ and environ["MANUFACTURER"] and \
-                "MODEL" in environ and environ["MODEL"] and \
-                "BOARD" in environ and environ["BOARD"] and \
-                "PIO_BOARD" in environ and environ["PIO_BOARD"]
-if is_branch_ok and is_printer_ok:
-    copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
-             dirs_exist_ok=True)
-
-    PIO_DEFAULT_ENV = 'default_envs = '
-    run(['sed', '-i', '-e',
-         f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
-         f'{PIO_PROJECT}/platformio.ini'],
-        check=True)
+# is_branch_ok = "MARLIN_GIT_BRANCH" in environ and \
+#                environ["MARLIN_GIT_BRANCH"] and \
+#                environ["MARLIN_GIT_BRANCH"] == current_git_branch
+# is_printer_ok = "MANUFACTURER" in environ and environ["MANUFACTURER"] and \
+#                 "MODEL" in environ and environ["MODEL"] and \
+#                 "BOARD" in environ and environ["BOARD"] and \
+#                 "PIO_BOARD" in environ and environ["PIO_BOARD"]
+# if is_branch_ok and is_printer_ok:
+#     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
+#              dirs_exist_ok=True)
+#
+#     PIO_DEFAULT_ENV = 'default_envs = '
+#     run(['sed', '-i', '-e',
+#          f's^{PIO_DEFAULT_ENV}.*^{PIO_DEFAULT_ENV}{environ["PIO_BOARD"]}^',
+#          f'{PIO_PROJECT}/platformio.ini'],
+#         check=True)
 
 if "CUSTOM_FIRMWARE_SETTINGS" in environ and \
         environ["CUSTOM_FIRMWARE_SETTINGS"]:

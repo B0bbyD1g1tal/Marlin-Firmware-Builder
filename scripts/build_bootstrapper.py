@@ -11,7 +11,7 @@ sets environment for the specified Board if passed
 from os import environ, chdir
 from subprocess import run
 from pathlib import Path
-# from shutil import copytree
+from shutil import copytree
 
 ###############################################################################
 # Marlin
@@ -35,23 +35,24 @@ if "MARLIN_GIT_BRANCH" in environ and \
         git_configs = ['git', 'clone', '-b', environ["MARLIN_GIT_BRANCH"],
                        MARLIN_CONFIG_REPO]
     # Clone Marlin repositories
+    archives = 'https://github.com/MarlinFirmware/Marlin/archive/{environ["MARLIN_GIT_BRANCH"]}.tar.gz'
+    # 'https://github.com/MarlinFirmware/Marlin/archive/2.0.7.2.zip'
     run(git_firmware, check=True)
     run(git_configs, check=True)
 
 # Add the specified 3D-Printer configuration
-
-# if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
-#         "MANUFACTURER" in environ and \
-#         "MODEL" in environ and \
-#         "BOARD" in environ and \
-#         "PIO_BOARD" in environ:
-#     MARLIN_PRINTER_CONFIG = Path(
-#         f'{environ["WORK_DIR"]}/Configurations/config/examples/'
-#         f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
-#     PIO_CONFIGS = Path(f'{environ["WORK_DIR"]}Marlin/Marlin/')
-#     # Copy Marlin 3D-Printer configuration
-#     copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
-#              dirs_exist_ok=True)
+if environ["MARLIN_GIT_BRANCH"] in MARLIN_BRANCHES and \
+        "MANUFACTURER" in environ and \
+        "MODEL" in environ and \
+        "BOARD" in environ and \
+        "PIO_BOARD" in environ:
+    MARLIN_PRINTER_CONFIG = Path(
+        f'{environ["WORK_DIR"]}/Configurations/config/examples/'
+        f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/{environ["BOARD"]}/')
+    PIO_CONFIGS = Path(f'{environ["WORK_DIR"]}Marlin/Marlin/')
+    # Copy Marlin 3D-Printer configuration
+    copytree(MARLIN_PRINTER_CONFIG, PIO_CONFIGS,
+             dirs_exist_ok=True)
 
 ###############################################################################
 # Platform IO
