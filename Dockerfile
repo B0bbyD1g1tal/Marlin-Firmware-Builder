@@ -46,8 +46,8 @@ apt-get install --no-install-recommends -y \
 python${PYTHON_VERSION} \
 python-is-python3 \
 python3-pip \
-python3-distutils \
-pip3 install --no-cache-dir platformio && \
+python3-distutils && \
+pip3 install platformio requests --no-cache-dir && \
 rm -rf /var/lib/apt/lists/* && \
 useradd -ms /bin/bash ${MAINTAINER}
 

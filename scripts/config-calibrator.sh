@@ -3,11 +3,11 @@
 set -e
 set -x
 ###############################################################################
-PIO_CONFIGS_DIR="${WORK_DIR}/Marlin/Marlin/"
+PIO_CONFIGS_DIR="${WORK_DIR}Marlin-${MARLIN_GIT_BRANCH}/Marlin/"
 ###############################################################################
 STRING_CONFIG_H_AUTHOR="#define STRING_CONFIG_H_AUTHOR"
 sed -i -e \
-  "s^${STRING_CONFIG_H_AUTHOR} \"(.*,^${STRING_CONFIG_H_AUTHOR} \"(${AUTHOR},^" \
+  "s^${STRING_CONFIG_H_AUTHOR} \"(.*,^${STRING_CONFIG_H_AUTHOR} \"(${MAINTAINER},^" \
   "${PIO_CONFIGS_DIR}"Configuration.h
 ###############################################################################
 # Custom config settings
