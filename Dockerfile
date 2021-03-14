@@ -38,7 +38,7 @@ python3-pip \
 python3-distutils && \
 pip3 install platformio requests --no-cache-dir && \
 rm -rf /var/lib/apt/lists/* && \
-useradd -s /bin/bash ${MAINTAINER} && \
+useradd -ms /bin/bash ${MAINTAINER} && \
 mkdir ${WORK_DIR} ${FIRMWARE_BIN_DIR} && \
 chown ${MAINTAINER} ${WORK_DIR} ${FIRMWARE_BIN_DIR}
 
