@@ -68,10 +68,14 @@ run(['pio', 'run', '-e', f'{PIO_ENV}'], check=True)
 ###############################################################################
 # Copy to firmware folder
 ###############################################################################
-FW_BIN_FILE = \
-    list(Path(f'{MARLIN_FW}/.pio/build/{PIO_ENV}/').glob('firmware-*.bin'))[0]
-BIN_NAME = \
+COMPILED_FW = \
+    sorted(Path(f'{MARLIN_FW}/.pio/build/{PIO_ENV}/').glob('firmware*'))
+FW_FILE_NAME = \
     f'{environ["MODEL"].replace(" ", "")}-{MOTHERBOARD}.' \
     f'{BRANCH}_{datetime.now().strftime("%d%b%y_%H%M%S")}'
 
-copyfile(FW_BIN_FILE, Path(f'{environ["FIRMWARE_BIN_DIR"]}/{BIN_NAME}'))
+for firmware in COMPILED_FW:
+    copyfile(firmware,
+             Path(f'{environ["FIRMWARE_BIN_DIR"]}/'
+                  f'{environ["MANUFACTURER"]}/{environ["MODEL"]}/'
+                  f'{FW_FILE_NAME}'))
