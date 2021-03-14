@@ -71,8 +71,8 @@ run(['pio', 'run', '-e', f'{PIO_ENV}'], check=True)
 COMPILED_FW = \
     sorted(Path(f'{MARLIN_FW}/.pio/build/{PIO_ENV}/').glob('firmware*'))
 FW_FILE_NAME = \
-    f'{environ["MODEL"].replace(" ", "")}-{MOTHERBOARD}.' \
-    f'{BRANCH}_{datetime.now().strftime("%d%b%y_%H%M%S")}'
+    f'{environ["MODEL"].replace(" ", "")}+{MOTHERBOARD}.' \
+    f'{BRANCH}_{datetime.now().strftime("%d-%b-%y_%H%M%S")}'
 
 for firmware in COMPILED_FW:
     copyfile(firmware,

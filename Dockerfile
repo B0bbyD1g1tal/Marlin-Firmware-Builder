@@ -2,8 +2,7 @@ ARG BASE_IMAGE=ubuntu
 ARG UBUNTU_VERSION=20.04
 ARG PYTHON_VERSION=3.8
 ARG TZ=Europe/Sofia
-ARG MARLIN_GIT_BRANCH=""
-#"bugfix-2.0.x"
+ARG MARLIN_GIT_BRANCH="bugfix-2.0.x"
 ARG MAINTAINER=B0bbyD1g1tal
 
 FROM ${BASE_IMAGE}:${UBUNTU_VERSION}
@@ -21,21 +20,13 @@ ENV WORK_DIR=/Marlin-Firmware-Builder/ \
 FIRMWARE_BIN_DIR=/firmware/ \
 MARLIN_GIT_BRANCH=${MARLIN_GIT_BRANCH} \
 TZ=${TZ} \
-#MANUFACTURER="Creality" \
-#MODEL="Ender-3 Pro" \
-#BOARD="CrealityV427" \
-#CUSTOM_FIRMWARE_SETTINGS="BLTOUCH, PROBE_OFFSET_WIZARD" \
 MAINTAINER=${MAINTAINER}
 
-LABEL project="Marlin-Firmware-Builder" \
-OS="${BASE_IMAGE}:${UBUNTU_VERSION}" \
-Python="${PYTHON_VERSION}" \
-Timezone="${TZ}" \
-Marlin-GitHub-Branch="${MARLIN_GIT_BRANCH}" \
-#3D-Printer.Manufacturer="${MANUFACTURER}" \
-#3D-Printer.Model="${MODEL}" \
-#3D-Printer.Board="${BOARD}" \
-#Custom-Firmware-Settings="${CUSTOM_FIRMWARE_SETTINGS}" \
+LABEL project=Marlin-Firmware-Builder \
+OS=${BASE_IMAGE}:${UBUNTU_VERSION} \
+Python=${PYTHON_VERSION} \
+Timezone=${TZ} \
+Marlin-GitHub-Branch=${MARLIN_GIT_BRANCH} \
 maintainer=${MAINTAINER}
 
 ADD scripts/ /usr/local/bin/
