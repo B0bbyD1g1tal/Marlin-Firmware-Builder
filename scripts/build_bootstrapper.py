@@ -42,7 +42,7 @@ if 'MARLIN_GIT_BRANCH' in environ and \
     conf_zip = ZipFile(BytesIO(conf_repo.content))
     conf_zip.extractall(PROJECT_DIR)
 
-    with open(f'{FIRMWARE_DIR}/README.md', 'rw') as readme:
+    with open(f'{FIRMWARE_DIR}/README.md', '+rw') as readme:
         readme.write(f'# Marlin Firmware build from "{BRANCH}" branch.\n')
 
     # Bootstrap PIO for Ender 3 Pro v4.2.7 or most 32bit boards using STM32
