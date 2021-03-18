@@ -5,11 +5,11 @@ Bootstraps PlatformIO default environment
 sets environment for the specified Model/Board
 """
 
-from datetime import datetime
 from os import environ, chdir, makedirs
 from subprocess import run
 from pathlib import Path
 from shutil import copytree, copyfile
+from datetime import datetime
 
 
 def extract_values(file, value, token, redundant):

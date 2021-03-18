@@ -15,17 +15,17 @@ ARG TZ
 ARG MAINTAINER
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV WORK_DIR=/Marlin-Firmware-Builder/ \
+ENV MARLIN_GIT_BRANCH=${MARLIN_GIT_BRANCH} \
+WORK_DIR=/Marlin-Firmware-Builder/ \
 FIRMWARE_BIN_DIR=/firmware/ \
-MARLIN_GIT_BRANCH=${MARLIN_GIT_BRANCH} \
 TZ=${TZ} \
 MAINTAINER=${MAINTAINER}
 
 LABEL project=Marlin-Firmware-Builder \
+Marlin-GitHub-Branch=${MARLIN_GIT_BRANCH} \
 OS=${BASE_IMAGE}:${UBUNTU_VERSION} \
 Python=${PYTHON_VERSION} \
 Timezone=${TZ} \
-Marlin-GitHub-Branch=${MARLIN_GIT_BRANCH} \
 maintainer=${MAINTAINER}
 
 RUN env && \

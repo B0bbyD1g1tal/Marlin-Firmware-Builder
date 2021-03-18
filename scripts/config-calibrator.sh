@@ -2,14 +2,13 @@
 ###############################################################################
 # The following config is for Creality Ender3 Pro v4.2.7 enabling BLTouch
 ###############################################################################
-set -e
-set -x
+set -xe
 ###############################################################################
 PIO_CONFIGS_DIR="${WORK_DIR}Marlin-${MARLIN_GIT_BRANCH}/Marlin/"
 ###############################################################################
-STRING_CONFIG_H_AUTHOR="#define STRING_CONFIG_H_AUTHOR"
+CONFIG_H_AUTHOR="#define STRING_CONFIG_H_AUTHOR"
 sed -i -e \
-  "s^${STRING_CONFIG_H_AUTHOR} \"(.*,^${STRING_CONFIG_H_AUTHOR} \"(${MAINTAINER},^" \
+  "s^${CONFIG_H_AUTHOR} \"(.*,^${CONFIG_H_AUTHOR} \"(${MAINTAINER},^" \
   "${PIO_CONFIGS_DIR}"Configuration.h
 ###############################################################################
 
