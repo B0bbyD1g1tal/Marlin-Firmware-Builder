@@ -1,7 +1,7 @@
 name: MyPy
-on:
-  push:
-    branches: [ master ]
+
+on: [ push ]
+
 jobs:
   MyPy:
     runs-on: ubuntu-20.04

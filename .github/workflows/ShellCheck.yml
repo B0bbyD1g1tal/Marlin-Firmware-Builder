@@ -1,7 +1,7 @@
 name: ShellCheck
-on:
-  push:
-    branches: [ master ]
+
+on: [ push ]
+
 jobs:
   ShellCheck:
     runs-on: ubuntu-20.04
