@@ -1,167 +1,167 @@
-## 3DFabXYZ
+# 3DFabXYZ
 
-### Migbot
+## Migbot
 
-## ADIMLab
+# ADIMLab
 
-### Gantry v1
+## Gantry v1
 
-### Gantry v2
+## Gantry v2
 
-## AlephObjects
+# AlephObjects
 
-### TAZ4
+## TAZ4
 
-## Alfawise
+# Alfawise
 
-### U20
+## U20
 
-### U20-bltouch
+## U20-bltouch
 
-## AliExpress
+# AliExpress
 
-### CL-260
+## CL-260
 
-### UM2pExt
+## UM2pExt
 
-## Anet
+# Anet
 
-### A2
+## A2
 
-### A2plus
+## A2plus
 
-### A6
+## A6
 
-### A8
+## A8
 
-### A8plus
+## A8plus
 
-### A9
+## A9
 
-### E10
+## E10
 
-### E16
+## E16
   * BTT SKR 1.3
 
   * Stock
 
-### ET4
+## ET4
 
-### ET4+
+## ET4+
 
-### ET4-Pro
+## ET4-Pro
 
-### ET4X
+## ET4X
 
-### ET5
+## ET5
 
-### ET5-Pro
+## ET5-Pro
 
-### ET5X
+## ET5X
 
-## AnimationExample
+# AnimationExample
 
-## AnyCubic
+# AnyCubic
 
-### Chiron
+## Chiron
 
-### Mega Zero
+## Mega Zero
   * Anycubic V1
 
   * BigTreeTech SKR Mini MZ V1.0
 
-### i3
+## i3
 
-### i3 Mega
+## i3 Mega
 
-## ArmEd
+# ArmEd
 
-## Artillery
+# Artillery
 
-### Genius
+## Genius
 
-### Sidewinder X1
+## Sidewinder X1
 
-### Sidewinder X1_0.9_degree_BMG_E3D_V6
+## Sidewinder X1_0.9_degree_BMG_E3D_V6
 
-## Azteeg
+# Azteeg
 
-### X5GT
+## X5GT
 
-## BIBO
+# BIBO
 
-### TouchX
+## TouchX
   * cyclops
 
   * default
 
-## BIQU
+# BIQU
 
-### B1
+## B1
 
-### B1-BLTouch
+## B1-BLTouch
 
-## BQ
+# BQ
 
-### Hephestos
+## Hephestos
 
-### Hephestos_2
+## Hephestos_2
 
-### WITBOX
+## WITBOX
 
-## CTC
+# CTC
 
-### i3 2560 Rev A
+## i3 2560 Rev A
   * no probe
 
-## Cartesio
+# Cartesio
 
-## Copymaster3D
+# Copymaster3D
 
-### 300
+## 300
 
-### 400
+## 400
 
-### 500
+## 500
 
-## Creality
+# Creality
 
-### CR-10
+## CR-10
   * BigTreeTech SKR Mini E3 2.0
 
   * CrealityV1
 
-### CR-10 Mini
+## CR-10 Mini
   * CrealityV1
 
   * MEEB-3DP
 
-### CR-10 S4
+## CR-10 S4
   * CrealityV1
 
-### CR-10 S5
+## CR-10 S5
   * CrealityV1
 
-### CR-10 V2
+## CR-10 V2
 
-### CR-10S
+## CR-10S
   * BigTreeTech SKR 1.4 Turbo TMC2209
 
   * BigTreeTech SKR Mini E3 2.0
 
   * CrealityV1
 
-### CR-20
+## CR-20
 
-### CR-20 Pro
+## CR-20 Pro
 
-### CR-6 SE
+## CR-6 SE
 
-### CR-8
+## CR-8
 
-### Ender-2
+## Ender-2
 
-### Ender-3
+## Ender-3
   * BigTreeTech SKR E3 Turbo
 
   * BigTreeTech SKR E3-DIP V1.1
@@ -188,7 +188,7 @@
 
   * MKS Robin E3P
 
-### Ender-3 Pro
+## Ender-3 Pro
   * BigTreeTech SKR Mini E3 1.0
 
   * BigTreeTech SKR Mini E3 1.2
@@ -201,12 +201,12 @@
 
   * CrealityV427
 
-### Ender-3 V2
+## Ender-3 V2
   * DWIN_SET
 
-### Ender-4
+## Ender-4
 
-### Ender-5
+## Ender-5
   * BigTreeTech SKR 1.4 Turbo (TMC2209)
 
   * BigTreeTech SKR E3 Turbo
@@ -221,9 +221,9 @@
 
   * CrealityV427
 
-### Ender-5 Plus
+## Ender-5 Plus
 
-### Ender-5 Pro
+## Ender-5 Pro
   * BigTreeTech SKR E3 Turbo
 
   * BigTreeTech SKR E3 Turbo with BLTouch
@@ -236,356 +236,356 @@
 
   * CrealityV427
 
-### Ender-6
+## Ender-6
 
-## Dagoma
+# Dagoma
 
-### Disco Ultimate
+## Disco Ultimate
 
-## Daycom
+# Daycom
 
-### 3DP-100
+## 3DP-100
 
-## EXP3D
+# EXP3D
 
-### Imprimante multifonction
+## Imprimante multifonction
 
-## Einstart-S
+# Einstart-S
 
-## Eryone
+# Eryone
 
-### Thinker SE
+## Thinker SE
   * Thinker V2 board
 
-## FYSETC
+# FYSETC
 
-### AIO_II
+## AIO_II
 
-### F6_13
+## F6_13
 
-### S6
+## S6
 
-## Felix
+# Felix
 
-### DUAL
+## DUAL
 
-### Single
+## Single
 
-## FlashForge
+# FlashForge
 
-### Creator 2X
+## Creator 2X
 
-### CreatorPro
+## CreatorPro
 
-## FlyingBear
+# FlyingBear
 
-### P905H
+## P905H
 
-## FolgerTech
+# FolgerTech
 
-### i3-2020
+## i3-2020
 
-## Formbot
+# Formbot
 
-### Raptor
+## Raptor
 
-### T_Rex_2+
+## T_Rex_2+
 
-### T_Rex_3
+## T_Rex_3
 
-## Geeetech
+# Geeetech
 
-### A10
+## A10
 
-### A10D
+## A10D
 
-### A10M
+## A10M
 
-### A10T
+## A10T
 
-### A20
+## A20
 
-### A20M
+## A20M
 
-### A20T
+## A20T
 
-### A30
+## A30
 
-### D200
+## D200
 
-### Duplicator5
+## Duplicator5
 
-### E180
+## E180
 
-### GT2560
+## GT2560
 
-### I3_Pro_X-GT2560
+## I3_Pro_X-GT2560
 
-### M201
+## M201
 
-### MeCreator2
+## MeCreator2
 
-### Me_creator
+## Me_creator
 
-### Me_ducer
+## Me_ducer
 
-### PI3A PRO
+## PI3A PRO
 
-### Prusa i3 Pro B
+## Prusa i3 Pro B
   * bltouch
 
   * noprobe
 
-### Prusa i3 Pro C
+## Prusa i3 Pro C
 
-### Prusa i3 Pro W
+## Prusa i3 Pro W
 
-## HMS434
+# HMS434
 
-## Infitary
+# Infitary
 
-### i3-M508
+## i3-M508
 
-## Intamsys
+# Intamsys
 
-### FunmatHT 4988
+## FunmatHT 4988
 
-## JGAurora
+# JGAurora
 
-### A1
+## A1
 
-### A3
+## A3
 
-### A5
+## A5
 
-### A5S
+## A5S
 
-### Magic
+## Magic
 
-## Kingroon
+# Kingroon
 
-### KP3
+## KP3
 
-## Labists
+# Labists
 
-### ET4
+## ET4
 
-## MBot
+# MBot
 
-### Cube
+## Cube
 
-## MakerFarm
+# MakerFarm
 
-### Pegasus 12
+## Pegasus 12
 
-## MakerParts
+# MakerParts
 
-## Malyan
+# Malyan
 
-### M150
+## M150
 
-### M200
+## M200
 
-## Micromake
+# Micromake
 
-### C1
+## C1
   * basic
 
   * enhanced
 
-## Mks
+# Mks
 
-### Robin
+## Robin
 
-### Robin_Lite3
+## Robin_Lite3
 
-### Robin_Pro
+## Robin_Pro
 
-### Sbase
+## Sbase
 
-## Modix
+# Modix
 
-### Big60
+## Big60
 
-## Nextion
+# Nextion
 
-### HMI
+## HMI
 
-## Ortur 4
+# Ortur 4
 
-## Printrbot
+# Printrbot
 
-### PrintrboardG2
+## PrintrboardG2
 
-### Simple Metal RevD
+## Simple Metal RevD
 
-## Prusa
+# Prusa
 
-### MK3S-BigTreeTech-BTT002
+## MK3S-BigTreeTech-BTT002
 
-## Qidi
+# Qidi
 
-### Qidi 1
+## Qidi 1
 
-## Raiscube
+# Raiscube
 
-### A8r
+## A8r
 
-## RapideLite
+# RapideLite
 
-### RL200
+## RL200
 
-## Renkforce
+# Renkforce
 
-### RF100
+## RF100
 
-### RF100XL
+## RF100XL
 
-### RF100v2
+## RF100v2
 
-## RepRapPro
+# RepRapPro
 
-### Huxley
+## Huxley
 
-## RepRapWorld
+# RepRapWorld
 
-### Megatronics
+## Megatronics
 
-## RigidBot
+# RigidBot
 
-## Robo3D
+# Robo3D
 
-### R1+
+## R1+
 
-## SCARA
+# SCARA
 
-### MP_SCARA
+## MP_SCARA
 
-### Morgan
+## Morgan
 
-## STM32
+# STM32
 
-### Black_STM32F407VET6
+## Black_STM32F407VET6
 
-### STM32F103RE
+## STM32F103RE
 
-### STM32F4
+## STM32F4
 
-## Sanguinololu
+# Sanguinololu
 
-## Sovol
+# Sovol
 
-### SV-01
+## SV-01
 
-## TPARA
+# TPARA
 
-### AXEL_TPARA
+## AXEL_TPARA
 
-## Tevo
+# Tevo
 
-### Michelangelo
+## Michelangelo
 
-### Nereus
+## Nereus
 
-### Tarantula Pro
+## Tarantula Pro
 
-### Tornado
+## Tornado
   * V1 (MKS Base)
 
   * V2 (MKS GEN-L)
 
-## TheBorg
+# TheBorg
 
-## TinyBoy2
+# TinyBoy2
 
-## Tronxy
+# Tronxy
 
-### X1
+## X1
 
-### X3A
+## X3A
 
-### X5S
+## X5S
 
-### X5S-2E
+## X5S-2E
 
-### X5SA
+## X5SA
 
-### XY100
+## XY100
 
-## Two Trees
+# Two Trees
 
-### BlueR
+## BlueR
   * BlueR V1
 
   * BlueR V2
 
   * BlueR V3
 
-### BlueR Plus
+## BlueR Plus
 
-### Sapphire Plus
+## Sapphire Plus
   * Sapphire Plus V2
 
-### Sapphire Pro
+## Sapphire Pro
 
-## UltiMachine
+# UltiMachine
 
-### Archim1
+## Archim1
 
-### Archim2
+## Archim2
 
-## VORONDesign
+# VORONDesign
 
-## Velleman
+# Velleman
 
-### K8200
+## K8200
 
-### K8400
+## K8400
   * Dual-head
 
   * Single-head
 
-## WASP
+# WASP
 
-### PowerWASP
+## PowerWASP
 
-## Wanhao
+# Wanhao
 
-### Duplicator 4S
+## Duplicator 4S
 
-### Duplicator 6
+## Duplicator 6
 
-### Duplicator i3 2.1
+## Duplicator i3 2.1
 
-### Duplicator i3 Mini
+## Duplicator i3 Mini
   * Alternative Bootscreens
 
-## Weistek
+# Weistek
 
-### wt150
+## wt150
 
-## Zonestar
+# Zonestar
 
-### P802M
+## P802M
 
-### P802QR2
+## P802QR2
   * BigTreeTech SKR 1.4 Turbo (A4988)
 
-## delta
+# delta
 
-### Anycubic
+## Anycubic
   * Kossel
 
   * Kossel Linear Plus
 
   * Predator
 
-### Dreammaker
+## Dreammaker
   * Overlord
 
   * Overlord_Pro
 
-### FLSUN
+## FLSUN
   * Q5-nano_v1
 
   * Q5-nano_v2
@@ -600,7 +600,7 @@
 
   * kossel_mini
 
-### Geeetech
+## Geeetech
   * G2
 
   * G2Pro
@@ -611,31 +611,31 @@
 
   * Rostock 301
 
-### Hatchbox_Alpha
+## Hatchbox_Alpha
 
-### MKS
+## MKS
   * SBASE
 
-### Malyan M300
+## Malyan M300
 
-### Tevo Little Monster
+## Tevo Little Monster
 
-### generic
+## generic
 
-### kossel_clear
+## kossel_clear
 
-### kossel_mini
+## kossel_mini
 
-### kossel_pro
+## kossel_pro
 
-### kossel_xl
+## kossel_xl
 
-## gCreate
+# gCreate
 
-### gMax1.5+
+## gMax1.5+
 
-## makibox
+# makibox
 
-## tvrrug
+# tvrrug
 
-### Round2
+## Round2
