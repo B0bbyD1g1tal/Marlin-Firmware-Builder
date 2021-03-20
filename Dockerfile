@@ -2,7 +2,6 @@ ARG MARLIN_GIT_BRANCH="bugfix-2.0.x"
 ARG BASE_IMAGE=ubuntu
 ARG UBUNTU_VERSION=20.04
 ARG PYTHON_VERSION=3.8
-ARG TZ=Europe/Sofia
 ARG MAINTAINER=B0bbyD1g1tal
 
 FROM ${BASE_IMAGE}:${UBUNTU_VERSION}
@@ -11,22 +10,19 @@ ARG MARLIN_GIT_BRANCH
 ARG BASE_IMAGE
 ARG UBUNTU_VERSION
 ARG PYTHON_VERSION
-ARG TZ
 ARG MAINTAINER
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV MARLIN_GIT_BRANCH=${MARLIN_GIT_BRANCH} \
 WORK_DIR=/Marlin-Firmware-Builder/ \
 FIRMWARE_BIN_DIR=/firmware/ \
-TZ=${TZ} \
 MAINTAINER=${MAINTAINER}
 
-LABEL project=Marlin-Firmware-Builder \
-Marlin-GitHub-Branch=${MARLIN_GIT_BRANCH} \
+LABEL Project=Marlin-Firmware-Builder \
+Marlin-Git-Branch=${MARLIN_GIT_BRANCH} \
 OS=${BASE_IMAGE}:${UBUNTU_VERSION} \
 Python=${PYTHON_VERSION} \
-Timezone=${TZ} \
-maintainer=${MAINTAINER}
+Maintainer=${MAINTAINER}
 
 RUN env && \
 apt-get update && \
