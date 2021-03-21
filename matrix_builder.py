@@ -6,7 +6,7 @@ import yaml
 WORK_DIR = str(Path('/home/b0bby/code/Marlin-Firmware-Builder/'))
 PROJECT = 'Marlin-Firmware-Builder'
 MAINTAINER = 'B0bbyD1g1tal'
-MARLIN_GIT_BRANCH = 'bugfix-2.0.x'
+MARLIN_GIT_BRANCH = '2.0.x'  # 'bugfix-2.0.x'
 CONF = Path('/home/b0bby/code/Configurations/config/examples/')
 IMAGE = f'{MAINTAINER}/{PROJECT}'.lower()
 TAG = 'stable' if MARLIN_GIT_BRANCH == '2.0.x' else 'latest'
@@ -67,21 +67,21 @@ def build_image():
         raise Exception(api_error)
 
 
-def dockerhub_auth(token_file='./ACCESS_TOKEN'):
-    """
-    Authentication against hub.docker.com
-    """
-    with open(token_file, 'r') as token:
-        access_token = token.read().strip()
-
-    return {'username': MAINTAINER.lower(),
-            'password': f'{access_token}'}
-
-
 def push_image():
     """
     Pushes to registry
     """
+
+    def dockerhub_auth(token_file='./ACCESS_TOKEN'):
+        """
+        Authentication against hub.docker.com
+        """
+        with open(token_file, 'r') as token:
+            access_token = token.read().strip()
+
+        return {'username': MAINTAINER.lower(),
+                'password': f'{access_token}'}
+
     print(f'Pushing {IMAGE}:{TAG} ...\n')
     try:
         output = docker_py.images.push(repository=IMAGE,
@@ -92,7 +92,7 @@ def push_image():
         raise Exception(api_error)
 
 
-def build_matrix(yaml_file='./PRINTERS.yml'):
+def build_matrix(yaml_file='./PRINTERS.yml',readme_file='' ):
     with open(yaml_file, 'r') as yml:
         firmware = yaml.load(yml, Loader=yaml.FullLoader)
 
@@ -138,8 +138,8 @@ def build_matrix(yaml_file='./PRINTERS.yml'):
 
 docker_py = DockerClient.from_env()
 
-# build_image()
+build_image()
 # push_image()
 
 # generate_printer_list()
-build_matrix()
+# build_matrix()
