@@ -1,1 +1,1 @@
-# Firmware delivery folder
+# Printers using Marlin Firmware

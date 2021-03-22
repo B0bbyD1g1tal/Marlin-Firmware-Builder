@@ -4,5 +4,9 @@
 # Python
 /venv/
 
+# Marlin
+/Configurations/
+/Marlin/
+
 # Docker Hub
 /ACCESS_TOKEN

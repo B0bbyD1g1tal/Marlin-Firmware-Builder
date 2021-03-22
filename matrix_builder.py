@@ -6,18 +6,19 @@ import yaml
 WORK_DIR = str(Path('/home/b0bby/code/Marlin-Firmware-Builder/'))
 PROJECT = 'Marlin-Firmware-Builder'
 MAINTAINER = 'B0bbyD1g1tal'
-MARLIN_GIT_BRANCH = '2.0.x'  # 'bugfix-2.0.x'
-CONF = Path('/home/b0bby/code/Configurations/config/examples/')
+MARLIN_GIT_BRANCH = 'bugfix-2.0.x'  # '2.0.x'
+CONF = Path(f'{WORK_DIR}/Configurations/config/examples/')
 IMAGE = f'{MAINTAINER}/{PROJECT}'.lower()
 TAG = 'stable' if MARLIN_GIT_BRANCH == '2.0.x' else 'latest'
-PRINTERS = {}
+PRINTERS_YAML = './PRINTERS.yml'
 
 
-def generate_printer_list(yaml_file='./PRINTERS.yml'):
+def generate_printer_list(yaml_file=PRINTERS_YAML):
     """
     Generates PRINTERS.yml
     """
 
+    PRINTERS = {}
     manufacturers = listdir(CONF)
     manufacturers.sort()
 
@@ -54,12 +55,12 @@ def build_image():
         image, output = docker_py.images.build(path=WORK_DIR,
                                                tag=f'{IMAGE}:{TAG}',
                                                buildargs=args,
-                                               # pull=True,
-                                               # nocache=True,
-                                               # rm=True,
+                                               pull=True,
+                                               nocache=True,
+                                               rm=True,
                                                encoding='gzip')
 
-        print([line for line in output])
+        print('\n'.join([str(line) for line in output]))
 
     except errors.BuildError as build_error:
         raise Exception(build_error)
@@ -92,54 +93,60 @@ def push_image():
         raise Exception(api_error)
 
 
-def build_matrix(yaml_file='./PRINTERS.yml',readme_file='' ):
+def build_matrix(yaml_file=PRINTERS_YAML, readme_file='./firmware/README.md'):
     with open(yaml_file, 'r') as yml:
         firmware = yaml.load(yml, Loader=yaml.FullLoader)
 
-    for manufacturer in firmware.keys():
-        print(f'# {manufacturer}\n')
+    with open(readme_file, 'w+') as readme:
+        readme.write('# Marlin Firmware Printers\n')
 
-        for printer in firmware[manufacturer]:
-            print(f'### {printer}\n')
+        for manufacturer in firmware.keys():
+            readme.write(f'## {manufacturer}\n')
 
-            envs = {'MANUFACTURER': f'{manufacturer}',
-                    'MODEL': f'{printer}',
-                    'BOARD': ''}
+            for printer in firmware[manufacturer]:
+                readme.write(f'### {printer}\n')
 
-            vols = {str(Path(f'{WORK_DIR}/firmware/')): {
-                'bind': '/firmware/',
-                'mode': 'rw'}}
+                envs = {'MANUFACTURER': f'{manufacturer}',
+                        'MODEL': f'{printer}',
+                        'BOARD': ''}
 
-            boards = firmware[manufacturer][printer]
-            if boards:
-                for board in boards:
-                    print(f' * {board}')
+                vols = {str(Path(f'{WORK_DIR}/firmware/')): {
+                    'bind': '/firmware/',
+                    'mode': 'rw'}}
 
-                    envs.update({'BOARD': f'{board}'})
+                boards = firmware[manufacturer][printer]
+                if boards:
+                    for board in boards:
+                        readme.write(f' * {board}')
 
+                        envs.update({'BOARD': f'{board}'})
+
+                        docker_py.containers.run(
+                            f'{IMAGE}:{TAG}',
+                            environment=envs,
+                            volumes=vols,
+                            auto_remove=True,
+                            # shm_size='2G',
+                            # mem_limit='1g',
+                            tty=True,
+                            remove=True)
+
+                else:
                     docker_py.containers.run(
-                        'b0bbyd1g1tal/marlin-firmware-builder:latest',
+                        f'{IMAGE}:{TAG}',
                         environment=envs,
                         volumes=vols,
-                        shm_size='2G',
-                        mem_limit='1g',
+                        auto_remove=True,
+                        # shm_size='2G',
+                        # mem_limit='1g',
+                        tty=True,
                         remove=True)
-            else:
-                docker_py.containers.run(
-                    'b0bbyd1g1tal/marlin-firmware-builder:latest',
-                    environment=envs,
-                    volumes=vols,
-                    shm_size='2G',
-                    mem_limit='1g',
-                    remove=True)
-
-    print(firmware)
 
 
 docker_py = DockerClient.from_env()
 
 build_image()
-# push_image()
+push_image()
 
-# generate_printer_list()
-# build_matrix()
+generate_printer_list()
+build_matrix()

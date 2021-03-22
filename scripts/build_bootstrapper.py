@@ -45,9 +45,9 @@ if 'MARLIN_GIT_BRANCH' in environ and \
     with open(f'{FIRMWARE_DIR}/README.md', 'w+') as readme:
         readme.write(f'# Marlin Firmware build from "{BRANCH}" branch.\n')
 
-    # Bootstrap PIO for Ender 3 Pro v4.2.7 or most 32bit boards using STM32
+    # Bootstrap PIO for most 32bit boards using STM32, Atmel AVR
     chdir(Path(f'{PROJECT_DIR}/Marlin-{BRANCH}/'))
-    run(['pio', 'run', '-t', 'clean', '-e', 'STM32F103RET6_creality'],
+    run(['pio', 'platform', 'install', 'ststm32', 'atmelavr', 'atmelmegaavr'],
         check=True)
 
 else:
